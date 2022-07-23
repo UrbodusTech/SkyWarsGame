@@ -11,16 +11,31 @@ on:
 
 jobs:
   build:
-
+    name: Create Build
+    if: "startsWith(github.event.head_commit.message, '[Build] ')"
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
-        distribution: 'temurin'
+        java-version: '8'
+        distribution: 'corretto'
         cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn clean package
+
+    - name: Upload Artifact
+      uses: ncipollo/release-action@v1.10.0
+      with:
+        artifacts: ${{ github.workspace }}/target/*.jar
+        draft: false
+        name: SkyWars Release
+        tag: v1.0
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: ""
+        commit: ${{ github.sha }}
+        allowUpdates: true
+        removeArtifacts: true
+        replacesArtifacts: true
