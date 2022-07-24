@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 public final class ResourceUtils {
 
@@ -36,6 +37,17 @@ public final class ResourceUtils {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void saveDefaultLangFile() {
+        File langFile = new File(GameLoader.getInstance().getDataFolder() + "/language/en_US.json");
+        if (!langFile.exists()) {
+            try {
+                FileUtils.copyURLToFile(Objects.requireNonNull(GameLoader.class.getClassLoader().getResource("en_US.json")), langFile);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ package com.skywars;
 import cn.nukkit.plugin.PluginBase;
 import com.google.gson.Gson;
 import com.skywars.extension.ExtensionManager;
+import com.skywars.lang.LangManager;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 
@@ -14,6 +15,7 @@ public class GameLoader extends PluginBase {
 
     private static GameLoader instance;
     private ExtensionManager extensionManager;
+    private LangManager langManager;
 
     @Override
     public void onLoad() {
@@ -24,6 +26,9 @@ public class GameLoader extends PluginBase {
     public void onEnable() {
         getLogger().info("Checking resources...");
         ResourceUtils.createDefaultDirectories();
+
+        langManager = new LangManager();
+        langManager.init();
 
         extensionManager = new ExtensionManager();
         extensionManager.init();
