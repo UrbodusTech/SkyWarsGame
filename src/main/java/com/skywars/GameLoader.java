@@ -31,7 +31,7 @@ public class GameLoader extends PluginBase {
 
     @Override
     public void onDisable() {
-
+        extensionManager.close();
     }
 
     public static GameLoader getInstance() {

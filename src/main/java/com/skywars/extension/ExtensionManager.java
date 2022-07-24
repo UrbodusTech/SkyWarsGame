@@ -103,4 +103,13 @@ public class ExtensionManager {
     private boolean addExtensionLoader(ExtensionLoader loader) {
         return loaders.putIfAbsent(loader.toString(), loader) == null;
     }
+
+    public void close() {
+        for (Extension extension : extensions.values()) {
+            extension.uninstall();
+        }
+
+        extensions.clear();
+        loaders.clear();
+    }
 }
