@@ -65,7 +65,7 @@ public class Match extends IslandStorage {
     }
 
     public void addPlayer(Player player) {
-        player.sendMessage(LangUtils.translate(player, "CONNECTING_MATCH", new String[] {data.getName()}));
+        player.sendMessage(LangUtils.translate(player, "CONNECTING_MATCH", new String[] {data.getName().toUpperCase()}));
 
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
         if (sessionManager.exists(player)) {
