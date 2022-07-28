@@ -4,11 +4,12 @@ import cn.nukkit.Player;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import com.skywars.GameLoader;
-import com.skywars.lang.LangUtils;
+import com.skywars.utils.LangUtils;
 import com.skywars.match.island.Island;
 import com.skywars.match.island.IslandStorage;
 import com.skywars.session.GameSession;
 import com.skywars.session.SessionManager;
+import com.skywars.utils.AttributeUtils;
 import com.skywars.utils.LevelUtils;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
@@ -28,12 +29,15 @@ public class Match extends IslandStorage {
     private final List<GameSession> players;
     private MatchStatus status = MatchStatus.OPEN;
 
+    private final MatchBroadcast broadcast;
+
     public Match(UUID uuid, MatchData data) {
         super(data);
         this.uuid = uuid;
         this.data = data;
 
         players = new ArrayList<>();
+        broadcast = new MatchBroadcast(this);
     }
 
     public void init() {
@@ -48,8 +52,16 @@ public class Match extends IslandStorage {
     public void reset() {
     }
 
+    public int getPlayingSize() {
+        return players.size();
+    }
+
+    public int getMaxSlots() {
+        return data.getIslandSpawn().size();
+    }
+
     public boolean canJoin() {
-        return status == MatchStatus.OPEN && players.size() < data.getIslandSpawn().size();
+        return status == MatchStatus.OPEN && getPlayingSize() < getMaxSlots();
     }
 
     public void addPlayer(Player player) {
@@ -64,6 +76,7 @@ public class Match extends IslandStorage {
 
         Island island = findIslandAvailable(player);
         if (island == null) {
+            player.sendMessage(LangUtils.translate(player, "NOT_ISLAND_AVAILABLE"));
 
             return;
         }
@@ -74,10 +87,17 @@ public class Match extends IslandStorage {
         session.setIsland(island);
         players.add(session);
 
+        if (players.size() >= data.getIslandSpawn().size()) {
+            status = MatchStatus.FULL;
+        }
+
         LevelUtils.prepareSkyWarsLevel(this);
 
+        AttributeUtils.sendScreen(player);
         Vector3 spawn = island.getSpawn();
         player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
+        AttributeUtils.sendInitialJoin(player);
+        broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
     }
 
     public void removePlayer(Player player) {
@@ -86,10 +106,16 @@ public class Match extends IslandStorage {
             GameSession session = sessionManager.getSessionByPlayer(player);
             players.remove(session);
             sessionManager.removeGameSession(player);
+            broadcast.publishMessage("PLAYER_LEFT", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
+
+            if (status == MatchStatus.FULL && getPlayingSize() < getMaxSlots()) {
+                status = MatchStatus.OPEN;
+            }
         }
 
         removeOwnerFromIsland(player);
         player.teleport(player.getServer().getDefaultLevel().getSpawnLocation());
+        AttributeUtils.sendDefault(player);
 
         LevelUtils.prepareSkyWarsLevel(this);
     }

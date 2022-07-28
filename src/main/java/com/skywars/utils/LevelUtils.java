@@ -16,6 +16,12 @@ public final class LevelUtils {
             return;
         }
         server.loadLevel(world);
+        Level level = server.getLevelByName(world);
+        level.setTime(Level.TIME_DAY);
+        level.stopTime();
+        level.setRaining(false);
+        level.setThundering(false);
+
     }
 
     public static void unloadSkyWarsLevel(@NonNull UUID uuid) {

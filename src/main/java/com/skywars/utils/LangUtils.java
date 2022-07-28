@@ -1,4 +1,4 @@
-package com.skywars.lang;
+package com.skywars.utils;
 
 import cn.nukkit.Player;
 import com.skywars.GameLoader;

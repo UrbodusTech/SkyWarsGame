@@ -2,7 +2,7 @@ package com.skywars.match;
 
 import cn.nukkit.Player;
 import com.skywars.GameLoader;
-import com.skywars.lang.LangUtils;
+import com.skywars.utils.LangUtils;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 import lombok.NonNull;
