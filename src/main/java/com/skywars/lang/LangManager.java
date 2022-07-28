@@ -5,6 +5,7 @@ import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 @Getter
@@ -34,6 +35,10 @@ public class LangManager {
     }
 
     public String getTranslationValue(String lang, String messageId, String[] args) {
+        if (lang == null) {
+            return messageId;
+        }
+
         if (languages.containsKey(lang)) {
             String content = languages.get(lang).getMessage(messageId);
             for (int i = 0; i < args.length; i++) {
@@ -48,5 +53,13 @@ public class LangManager {
 
     public String getTranslationValue(String lang, String messageId) {
         return getTranslationValue(lang, messageId, new String[0]);
+    }
+
+    public String getTranslationValue(Locale locale, String messageId) {
+        if (locale == null) {
+            return messageId;
+        }
+
+        return getTranslationValue(locale.toString(), messageId);
     }
 }

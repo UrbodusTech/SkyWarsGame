@@ -1,0 +1,9 @@
+# Thread Pool in charge of the reset map and secondary actions, increase or decrease taking into account the number of maps, the frequency of use of the game and the memory of the host
+thread-pool-size: 5
+
+# If this option is activated, extensions and api methods will be enabled.
+extension-actions: true
+
+# If this option is activated, the /skywars command will be registered, which players can use to enter a random match.
+# The extension system can be used to create a custom match login system, in that case it is better to disable this option.
+join-command-method: true

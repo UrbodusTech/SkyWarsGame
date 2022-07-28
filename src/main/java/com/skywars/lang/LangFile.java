@@ -54,6 +54,9 @@ public class LangFile {
         return messages.get(id).getAsString();
     }
 
+    /*
+     * With this function you can add messages even if the lang file is already loaded, use it to add messages from the extensions.
+     */
     public void appendMessage(String id, String message) {
         if (messages.has(id)) {
             GameLoader.getInstance().getLogger().warning("Skipping message[" + id + "] because it already exists");
