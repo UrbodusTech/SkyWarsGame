@@ -32,6 +32,7 @@ public final class ResourceUtils {
             Files.createDirectories(dataPath.resolve("language"));
             Files.createDirectories(dataPath.resolve("maps"));
             Files.createDirectories(dataPath.resolve("configs"));
+            Files.createDirectories(dataPath.resolve("ext-dat"));
 
             if (queueDirectory.exists()) {
                 FileUtils.deleteDirectory(queueDirectory);
