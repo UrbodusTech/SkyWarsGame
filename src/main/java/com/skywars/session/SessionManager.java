@@ -15,12 +15,15 @@ public class SessionManager {
         sessions = new ConcurrentHashMap<>();
     }
 
-    public void createGameSession(Player player) {
+    public GameSession createGameSession(Player player) {
         if (sessions.containsKey(player.getName())) {
-            return;
+            return sessions.get(player.getName());
         }
 
-        sessions.put(player.getName(), new GameSession(player));
+        GameSession session = new GameSession(player);
+        sessions.put(player.getName(), session);
+
+        return session;
     }
 
     public void removeGameSession(Player player) {
@@ -33,5 +36,9 @@ public class SessionManager {
 
     public void clear() {
         sessions.clear();
+    }
+
+    public boolean exists(Player player) {
+        return sessions.containsKey(player.getName());
     }
 }

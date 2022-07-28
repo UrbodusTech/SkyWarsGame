@@ -2,6 +2,7 @@ package com.skywars.match;
 
 import cn.nukkit.Player;
 import com.skywars.GameLoader;
+import com.skywars.lang.LangUtils;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 import lombok.NonNull;
@@ -44,9 +45,7 @@ public class MatchManager {
     }
 
     public boolean queue(Player player) {
-        String emptyMsg = GameLoader.getInstance()
-                .getLangManager()
-                .getTranslationValue(player.getLocale(), "EMPTY_MATCH_LIST");
+        String emptyMsg = LangUtils.translate(player, "EMPTY_MATCH_LIST");
 
         if (matches.size() == 0) {
             player.sendMessage(emptyMsg);

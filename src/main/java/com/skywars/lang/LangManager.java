@@ -11,6 +11,8 @@ import java.util.Map;
 @Getter
 public class LangManager {
 
+    public static final String DEFAULT_LANG_TAG = "en_US";
+
     private final Map<String, LangFile> languages;
 
     public LangManager() {
@@ -19,7 +21,7 @@ public class LangManager {
 
     public void init() {
         ResourceUtils.saveDefaultLangFile();
-        registerLangFile("en_US");
+        registerLangFile(DEFAULT_LANG_TAG);
     }
 
     public void registerLangFile(String id) {
@@ -55,11 +57,15 @@ public class LangManager {
         return getTranslationValue(lang, messageId, new String[0]);
     }
 
-    public String getTranslationValue(Locale locale, String messageId) {
+    public String getTranslationValue(Locale locale, String messageId, String[] args) {
         if (locale == null) {
-            return messageId;
+            return getTranslationValue(DEFAULT_LANG_TAG, messageId, args);
         }
 
-        return getTranslationValue(locale.toString(), messageId);
+        return getTranslationValue(locale.toString(), messageId, args);
+    }
+
+    public String getTranslationValue(Locale locale, String messageId) {
+        return getTranslationValue(locale, messageId, new String[0]);
     }
 }

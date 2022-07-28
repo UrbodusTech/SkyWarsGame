@@ -1,3 +1,5 @@
 {
-  "EMPTY_MATCH_LIST": "&cThere are no games available."
+  "EMPTY_MATCH_LIST": "&cThere are no games available.",
+  "CONNECTING_MATCH": "&eConnecting to the match: &c{0}",
+  "ALREADY_PLAYING": "&4You are already in an active game session. Finish the current game to be able to connect to another game."
 }
