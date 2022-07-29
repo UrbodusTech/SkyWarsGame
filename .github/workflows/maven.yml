@@ -17,19 +17,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Set up JDK 8
       uses: actions/setup-java@v3
       with:
         java-version: '8'
         distribution: 'corretto'
         cache: maven
-    - name: Build with Maven
+
+    - name: Build Game
       run: mvn clean package
+
+    - name: Build Extension
+      run: mvn clean package -f /example/KitsExtension/pom.xml
 
     - name: Upload Artifact
       uses: ncipollo/release-action@v1.10.0
       with:
-        artifacts: ${{ github.workspace }}/target/*.jar
+        artifacts: ${{ github.workspace }}/target/*.jar ${{ github.workspace }}/example/KitsExtension/target/*.jar
         draft: false
         name: SkyWars Release
         tag: v1.0
