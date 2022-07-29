@@ -6,4 +6,25 @@ Sometimes using a public game plugin is somewhat complicated for different reaso
 
 The goal of this plugin is not focused on offering a plugin with all the features that a server/network wants, this plugin offers the systems and gameplay of a SkyWars, yes, but it also offers an extension system that allows servers/networks create own features and integrate them directly into the game while maintaining compatibility and synchronization. Cool! Imagine creating an extension that adds Custom Cages to the plugin or even better create an extension that adds Cages, Kits, Death Effects, etc.
 
+## 🌎 Official Extensions
+| name  |   author   | link                                                                     |
+|:------|:----------:|:-------------------------------------------------------------------------|
+| Kis   | JoseLuisHD | https://github.com/JoseLuisHD/SkyWars/tree/release/example/KitsExtension |
 
+NOTE: If you want to add your extension to the list remember to open a pull request with the changes in README.md adding your extension to the table.
+
+## 🪛 Build
+```
+mvn clean package
+```
+
+## 🛠 Contributions
+All contributions are welcome, to facilitate the review process 3 things will be checked:<br>
+- Don't use the main (release) branch, use another branch, so we can test the changes.
+- Add a description of the changes/bug fixes.
+- If there are api changes remember to increase the version in GameLoader.java.
+
+NOTE: Remember to review the pull request comments, we may add comments if necessary.
+
+## 💓 Donations
+☕ <a href="https://www.buymeacoffee.com/joseluishd">buy me a coffee</a>
