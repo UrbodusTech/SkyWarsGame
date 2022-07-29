@@ -6,9 +6,9 @@ import cn.nukkit.command.ConsoleCommandSender;
 import cn.nukkit.command.defaults.VanillaCommand;
 import com.skywars.GameLoader;
 
-public class SkyWarsCommand extends VanillaCommand {
+public class NativeSkyWarsCommand extends VanillaCommand {
 
-    public SkyWarsCommand() {
+    public NativeSkyWarsCommand() {
         super("skywars", "SkyWars Match Queue", "/skywars", new String[] { "sw" });
     }
 

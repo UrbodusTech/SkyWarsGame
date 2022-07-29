@@ -1,10 +1,14 @@
 package com.skywars;
 
 import cn.nukkit.plugin.PluginBase;
+import cn.nukkit.plugin.PluginManager;
 import com.google.gson.Gson;
-import com.skywars.command.SkyWarsCommand;
+import com.skywars.command.NativeSkyWarsCommand;
 import com.skywars.extension.ExtensionManager;
 import com.skywars.lang.LangManager;
+import com.skywars.listener.GameBlockListener;
+import com.skywars.listener.GameEntityListener;
+import com.skywars.listener.GamePlayerListener;
 import com.skywars.match.MatchManager;
 import com.skywars.session.SessionManager;
 import com.skywars.utils.ResourceUtils;
@@ -42,9 +46,14 @@ public class GameLoader extends PluginBase {
         sessionManager = new SessionManager();
 
         if (getConfig().getBoolean("join-command-method")) {
-            SkyWarsCommand command = new SkyWarsCommand();
+            NativeSkyWarsCommand command = new NativeSkyWarsCommand();
             getServer().getCommandMap().register(command.getName(), command);
         }
+
+        PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(new GameBlockListener(), this);
+        manager.registerEvents(new GamePlayerListener(), this);
+        manager.registerEvents(new GameEntityListener(), this);
 
         if (getConfig().getBoolean("extension-actions")) {
             extensionManager = new ExtensionManager();
