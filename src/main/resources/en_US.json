@@ -5,5 +5,9 @@
   "NOT_ISLAND_AVAILABLE": "&4Unexpected error, no available islands found.",
   "PLAYER_JOIN": "&b{0} &ejoin the game [&b{1}&e/&b{2}&e]",
   "PLAYER_LEFT": "&b{0} &eleft the game [&b{1}&e/&b{2}&e]",
-  "BLOCKED_COMMANDS": "&cCommands are blocked in this game, use !help to get a list of internal game commands."
+  "BLOCKED_COMMANDS": "&cCommands are blocked in this game, use !help to get a list of internal game commands.",
+  "WAITING_STATS_STARTING": "&e(&b{0}&e/&b{1}&e)&7: &a{2}",
+  "WAITING_STATS_": "&e(&b{0}&e/&b{1}&e)&7: &cWaiting Players",
+  "AUTHOR_TITLE_MAP": "&9{0}",
+  "AUTHOR_TITLE_MAP_NAME": "&7By {0}"
 }

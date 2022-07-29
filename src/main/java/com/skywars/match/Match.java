@@ -1,6 +1,7 @@
 package com.skywars.match;
 
 import cn.nukkit.Player;
+import cn.nukkit.Server;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import com.skywars.GameLoader;
@@ -30,6 +31,7 @@ public class Match extends IslandStorage {
     private MatchStatus status = MatchStatus.OPEN;
 
     private final MatchBroadcast broadcast;
+    private final MatchTick tick;
 
     public Match(UUID uuid, MatchData data) {
         super(data);
@@ -38,6 +40,7 @@ public class Match extends IslandStorage {
 
         players = new ArrayList<>();
         broadcast = new MatchBroadcast(this);
+        tick = new MatchTick(this);
     }
 
     public void init() {
@@ -98,9 +101,10 @@ public class Match extends IslandStorage {
         player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
         AttributeUtils.sendInitialJoin(player);
         broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
+        tick.check();
     }
 
-    public void removePlayer(Player player) {
+    public void removePlayer(Player player, boolean hub) {
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
         if (sessionManager.exists(player)) {
             GameSession session = sessionManager.getSessionByPlayer(player);
@@ -117,9 +121,16 @@ public class Match extends IslandStorage {
         }
 
         removeOwnerFromIsland(player);
-        player.teleport(player.getServer().getDefaultLevel().getSpawnLocation());
-        AttributeUtils.sendDefault(player);
+        if (hub) {
+            player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn());
+            AttributeUtils.sendDefault(player);
+        }
 
+        tick.check();
         LevelUtils.prepareSkyWarsLevel(this);
+    }
+
+    public void removePlayer(Player player) {
+        removePlayer(player, true);
     }
 }

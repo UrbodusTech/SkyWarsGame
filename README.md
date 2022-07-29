@@ -28,3 +28,5 @@ NOTE: Remember to review the pull request comments, we may add comments if neces
 
 ## 💓 Donations
 ☕ <a href="https://www.buymeacoffee.com/joseluishd">buy me a coffee</a>
+
+# Wiki

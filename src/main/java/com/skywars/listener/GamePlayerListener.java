@@ -17,7 +17,7 @@ public class GamePlayerListener extends BaseListener {
             return;
         }
 
-        match.removePlayer(player);
+        match.removePlayer(player, false);
     }
 
     @EventHandler

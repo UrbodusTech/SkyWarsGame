@@ -52,6 +52,19 @@ public class MatchBroadcast {
         publishPopup(messageId, new String[0]);
     }
 
+    public void publishTitle(String titleId, String[] titleArgs, String subTitleId, String[] subtitleArgs) {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            session.getPlayer().sendTitle(
+                    LangUtils.translate(session.getPlayer(), titleId, titleArgs),
+                    LangUtils.translate(session.getPlayer(), subTitleId, subtitleArgs)
+            );
+        }
+    }
+
     public void publishSound(String sound) {
         for (GameSession session : match.getPlayers()) {
             if (!checkConditions(session)) {
