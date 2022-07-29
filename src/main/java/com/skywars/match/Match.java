@@ -106,7 +106,10 @@ public class Match extends IslandStorage {
             GameSession session = sessionManager.getSessionByPlayer(player);
             players.remove(session);
             sessionManager.removeGameSession(player);
-            broadcast.publishMessage("PLAYER_LEFT", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
+
+            if (status == MatchStatus.OPEN || status == MatchStatus.FULL) {
+                broadcast.publishMessage("PLAYER_LEFT", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
+            }
 
             if (status == MatchStatus.FULL && getPlayingSize() < getMaxSlots()) {
                 status = MatchStatus.OPEN;

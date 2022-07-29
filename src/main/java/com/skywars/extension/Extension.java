@@ -40,7 +40,7 @@ public abstract class Extension {
     }
 
     public void setEnabled(boolean value) {
-        if (initialized) {
+        if (!initialized) {
             throw new IllegalStateException("Extension is not initialized.");
         }
 

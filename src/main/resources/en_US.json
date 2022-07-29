@@ -4,5 +4,6 @@
   "ALREADY_PLAYING": "&4You are already in an active game session. Finish the current game to be able to connect to another game.",
   "NOT_ISLAND_AVAILABLE": "&4Unexpected error, no available islands found.",
   "PLAYER_JOIN": "&b{0} &ejoin the game [&b{1}&e/&b{2}&e]",
-  "PLAYER_LEFT": "&b{0} &eleft the game [&b{1}&e/&b{2}&e]"
+  "PLAYER_LEFT": "&b{0} &eleft the game [&b{1}&e/&b{2}&e]",
+  "BLOCKED_COMMANDS": "&cCommands are blocked in this game, use !help to get a list of internal game commands."
 }

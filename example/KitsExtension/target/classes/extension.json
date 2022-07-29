@@ -1,0 +1,7 @@
+{
+  "name": "SkyWarsKits",
+  "version": "1.0-snapshot",
+  "author": "JoseLuisHD",
+  "api": 1.0,
+  "bootClass": "com.kits.KitsExtension"
+}

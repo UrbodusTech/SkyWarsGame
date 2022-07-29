@@ -28,5 +28,6 @@ public final class AttributeUtils {
         sendDefault(player);
         player.setFoodEnabled(false);
         player.setImmobile(true);
+        player.setCheckMovement(false);
     }
 }

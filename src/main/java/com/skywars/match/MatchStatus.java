@@ -4,5 +4,6 @@ public enum MatchStatus {
     OPEN,
     CLOSE,
     RESETTING,
-    FULL
+    FULL,
+    STARTING
 }
