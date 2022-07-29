@@ -29,7 +29,7 @@ jobs:
       run: mvn clean package
 
     - name: Build Extension
-      run: mvn clean package -f /example/KitsExtension/pom.xml
+      run: mvn clean package -f ${{ github.workspace }}/example/KitsExtension/pom.xml
 
     - name: Upload Artifact
       uses: ncipollo/release-action@v1.10.0
