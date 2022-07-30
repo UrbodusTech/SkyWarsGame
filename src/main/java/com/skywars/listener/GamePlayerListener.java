@@ -90,13 +90,10 @@ public class GamePlayerListener extends BaseListener {
         String message = event.getMessage();
 
         if (message.charAt(0) != '!') {
-            System.out.println("No es igual");
-            System.out.println(message);
             return;
         }
 
         if (!sessionManager.exists(player)) {
-            System.out.println("No existe session");
             return;
         }
 

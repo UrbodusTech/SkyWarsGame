@@ -39,11 +39,12 @@ public class MatchTick {
     }
 
     public void stop() {
-        if (!(scheduled == null)) {
+        if (scheduled != null) {
             scheduled.shutdownNow();
+            scheduled = null;
         }
 
-        if (!(gameTick == null)) {
+        if (gameTick != null) {
             gameTick = null;
         }
     }

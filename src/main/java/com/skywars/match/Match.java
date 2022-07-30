@@ -54,6 +54,8 @@ public class Match extends IslandStorage {
         if (data.getMaxTimerRepetitions() == 0) {
             data.setMaxTimerRepetitions(2);
         }
+
+        LevelUtils.loadSkyWarsLevel(uuid);
     }
 
     public void close() {
@@ -103,8 +105,6 @@ public class Match extends IslandStorage {
             status = MatchStatus.FULL;
         }
 
-        LevelUtils.prepareSkyWarsLevel(this);
-
         AttributeUtils.sendScreen(player);
         Vector3 spawn = island.getSpawn();
         player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
@@ -116,7 +116,7 @@ public class Match extends IslandStorage {
 
     public void removePlayer(Player player) {
         removeOwnerFromIsland(player);
-        player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn());
+        player.teleport(Server.getInstance().getDefaultLevel().getSpawnLocation());
         AttributeUtils.sendDefault(player);
 
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
@@ -135,6 +135,5 @@ public class Match extends IslandStorage {
         }
 
         tick.check();
-        LevelUtils.prepareSkyWarsLevel(this);
     }
 }
