@@ -9,5 +9,9 @@
   "WAITING_STATS_STARTING": "&e(&b{0}&e/&b{1}&e)&7: &a{2}",
   "WAITING_STATS_": "&e(&b{0}&e/&b{1}&e)&7: &cWaiting Players",
   "AUTHOR_TITLE_MAP": "&9{0}",
-  "AUTHOR_TITLE_MAP_NAME": "&7By {0}"
+  "AUTHOR_TITLE_MAP_NAME": "&7By {0}",
+  "INVALID_COMMAND": "&cCommand not valid use &4!help &cto get a list of commands",
+  "HELP_COMMAND_DESCRIPTION": "Get a list of commands",
+  "EXIT_COMMAND_DESCRIPTION": "Exit current match",
+  "MAThC_USE_EXIT": "&eUse &b!exit &eto exit the game"
 }

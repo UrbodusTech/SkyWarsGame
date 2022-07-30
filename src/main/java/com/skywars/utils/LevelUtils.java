@@ -11,7 +11,7 @@ public final class LevelUtils {
 
     public static void loadSkyWarsLevel(@NonNull UUID uuid) {
         Server server = Server.getInstance();
-        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid.toString() + "/";
+        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid + "/";
         if (server.isLevelLoaded(world)) {
             return;
         }
@@ -26,16 +26,16 @@ public final class LevelUtils {
 
     public static void unloadSkyWarsLevel(@NonNull UUID uuid) {
         Server server = Server.getInstance();
-        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid.toString() + "/";
+        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid + "/";
         if (!server.isLevelLoaded(world)) {
             return;
         }
-        server.unloadLevel(server.getLevelByName(world), true);
+        server.unloadLevel(server.getLevelByName(world));
     }
 
     public static Level getSkyWarsLevel(@NonNull UUID uuid) {
         Server server = Server.getInstance();
-        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid.toString() + "/";
+        String world = server.getDataPath() + "/worlds/sw_queue/" + uuid + "/";
 
         return server.getLevelByName(world);
     }

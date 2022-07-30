@@ -58,6 +58,7 @@ public class WaitingPhase extends Phase {
         if (timer.getTime() == 0) {
             getMatch().setStatus(MatchStatus.CLOSE);
             getMatch().getBroadcast().publishSound("bubble.up");
+            getMatch().getBroadcast().publishStartAttributes();
             getMatch().getBroadcast().publishTitle(
                     "AUTHOR_TITLE_MAP",
                     new String[]{getMatch().getData().getName()},

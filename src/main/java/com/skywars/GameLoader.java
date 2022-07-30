@@ -3,6 +3,7 @@ package com.skywars;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.plugin.PluginManager;
 import com.google.gson.Gson;
+import com.skywars.command.GameCommandManager;
 import com.skywars.command.NativeSkyWarsCommand;
 import com.skywars.extension.ExtensionManager;
 import com.skywars.lang.LangManager;
@@ -25,6 +26,7 @@ public class GameLoader extends PluginBase {
     private LangManager langManager;
     private MatchManager matchManager;
     private SessionManager sessionManager;
+    private GameCommandManager commandManager;
 
     @Override
     public void onLoad() {
@@ -44,6 +46,9 @@ public class GameLoader extends PluginBase {
         matchManager.init();
 
         sessionManager = new SessionManager();
+
+        commandManager = new GameCommandManager();
+        commandManager.init();
 
         if (getConfig().getBoolean("join-command-method")) {
             NativeSkyWarsCommand command = new NativeSkyWarsCommand();

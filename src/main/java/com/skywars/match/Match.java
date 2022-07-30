@@ -45,6 +45,15 @@ public class Match extends IslandStorage {
 
     public void init() {
         ResourceUtils.releaseMatchMap(this);
+        if (data.getCountDownMinPlayers() == 0) {
+            data.setCountDownMinPlayers(2);
+        }
+        if (data.getCountDownTimerSeconds() < 60) {
+            data.setCountDownTimerSeconds(6 * 60);
+        }
+        if (data.getMaxTimerRepetitions() == 0) {
+            data.setMaxTimerRepetitions(2);
+        }
     }
 
     public void close() {
@@ -101,10 +110,15 @@ public class Match extends IslandStorage {
         player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
         AttributeUtils.sendInitialJoin(player);
         broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
+        player.sendMessage(LangUtils.translate(player, "MAThC_USE_EXIT"));
         tick.check();
     }
 
-    public void removePlayer(Player player, boolean hub) {
+    public void removePlayer(Player player) {
+        removeOwnerFromIsland(player);
+        player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn());
+        AttributeUtils.sendDefault(player);
+
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
         if (sessionManager.exists(player)) {
             GameSession session = sessionManager.getSessionByPlayer(player);
@@ -120,17 +134,7 @@ public class Match extends IslandStorage {
             }
         }
 
-        removeOwnerFromIsland(player);
-        if (hub) {
-            player.teleport(Server.getInstance().getDefaultLevel().getSafeSpawn());
-            AttributeUtils.sendDefault(player);
-        }
-
         tick.check();
         LevelUtils.prepareSkyWarsLevel(this);
-    }
-
-    public void removePlayer(Player player) {
-        removePlayer(player, true);
     }
 }

@@ -30,4 +30,9 @@ public final class AttributeUtils {
         player.setImmobile(true);
         player.setCheckMovement(false);
     }
+
+    public static void sendStart(Player player) {
+        player.setFoodEnabled(true);
+        player.setImmobile(false);
+    }
 }

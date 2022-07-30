@@ -4,7 +4,9 @@ import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.event.player.*;
+import com.skywars.GameLoader;
 import com.skywars.match.Match;
+import com.skywars.session.GameSession;
 import com.skywars.utils.LangUtils;
 
 public class GamePlayerListener extends BaseListener {
@@ -17,7 +19,7 @@ public class GamePlayerListener extends BaseListener {
             return;
         }
 
-        match.removePlayer(player, false);
+        match.removePlayer(player);
     }
 
     @EventHandler
@@ -80,5 +82,26 @@ public class GamePlayerListener extends BaseListener {
         if (cancelIfIsWaiting(event.getTransaction().getSource(), event)) {
             return;
         }
+    }
+
+    @EventHandler
+    public void onChat(PlayerChatEvent event) {
+        Player player = event.getPlayer();
+        String message = event.getMessage();
+
+        if (message.charAt(0) != '!') {
+            System.out.println("No es igual");
+            System.out.println(message);
+            return;
+        }
+
+        if (!sessionManager.exists(player)) {
+            System.out.println("No existe session");
+            return;
+        }
+
+        GameSession session = sessionManager.getSessionByPlayer(player);
+        GameLoader.getInstance().getCommandManager().processCommand(session, message);
+        event.setCancelled(true);
     }
 }

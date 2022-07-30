@@ -2,6 +2,7 @@ package com.skywars.match;
 
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.PlaySoundPacket;
+import com.skywars.utils.AttributeUtils;
 import com.skywars.utils.LangUtils;
 import com.skywars.session.GameSession;
 import lombok.RequiredArgsConstructor;
@@ -81,6 +82,16 @@ public class MatchBroadcast {
             packet.z = (int)vector.getZ();
 
             session.getPlayer().dataPacket(packet);
+        }
+    }
+
+    public void publishStartAttributes() {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            AttributeUtils.sendStart(session.getPlayer());
         }
     }
 }

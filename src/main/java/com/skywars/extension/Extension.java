@@ -1,8 +1,8 @@
 package com.skywars.extension;
 
 import cn.nukkit.Server;
-import cn.nukkit.plugin.PluginLogger;
 import com.skywars.GameLoader;
+import com.skywars.command.GameCommandManager;
 import com.skywars.lang.LangManager;
 import com.skywars.match.MatchManager;
 import com.skywars.session.SessionManager;
@@ -23,6 +23,9 @@ public abstract class Extension {
 
     private File dataPath;
 
+    private ExtensionLogger logger;
+
+
     public synchronized void init(@NonNull File file, @NonNull ExtensionInfo info, ExtensionManager extensionManager) {
         if (initialized) {
             throw new IllegalStateException("Extension is already initialized!");
@@ -37,6 +40,8 @@ public abstract class Extension {
 
         dataPath = new File(GameLoader.getInstance().getDataFolder() + "/ext-dat/" + info.getName());
         dataPath.mkdirs();
+
+        logger = new ExtensionLogger(this.info.getName());
     }
 
     public void setEnabled(boolean value) {
@@ -75,7 +80,7 @@ public abstract class Extension {
         return Server.getInstance();
     }
 
-    public PluginLogger getLogger() {
-        return GameLoader.getInstance().getLogger();
+    public GameCommandManager getCommandManager() {
+        return GameLoader.getInstance().getCommandManager();
     }
 }

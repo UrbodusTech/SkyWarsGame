@@ -106,7 +106,7 @@ public class ExtensionManager {
 
     public void close() {
         for (Extension extension : extensions.values()) {
-            extension.uninstall();
+            extension.setEnabled(false);
         }
 
         extensions.clear();
