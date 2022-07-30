@@ -5,6 +5,7 @@ import cn.nukkit.Server;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import com.skywars.GameLoader;
+import com.skywars.tick.ResetMatchTick;
 import com.skywars.utils.LangUtils;
 import com.skywars.match.island.Island;
 import com.skywars.match.island.IslandStorage;
@@ -64,6 +65,10 @@ public class Match extends IslandStorage {
     }
 
     public void reset() {
+        status = MatchStatus.RESETTING;
+        GameLoader.getInstance().getMatchManager()
+                .getMapPool()
+                .execute(new ResetMatchTick(this));
     }
 
     public int getPlayingSize() {

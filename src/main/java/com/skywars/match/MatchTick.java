@@ -47,5 +47,9 @@ public class MatchTick {
         if (gameTick != null) {
             gameTick = null;
         }
+
+        if (match.getStatus() == MatchStatus.CLOSE) {
+            match.reset();
+        }
     }
 }

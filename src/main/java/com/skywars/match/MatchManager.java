@@ -8,15 +8,20 @@ import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Getter
 public class MatchManager {
 
     private final Map<UUID, Match> matches;
+    private final ExecutorService mapPool;
 
     public MatchManager() {
         matches = new HashMap<>();
+        mapPool = Executors.newFixedThreadPool(GameLoader.getInstance().getConfig().getInt("thread-pool-size"));
     }
 
     public void init() {
@@ -30,6 +35,16 @@ public class MatchManager {
     }
 
     public void close() {
+        mapPool.shutdown();
+
+        while (true) {
+            try {
+                if (!mapPool.awaitTermination(Long.MAX_VALUE, TimeUnit.MICROSECONDS)) break;
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         for (Match match : matches.values()) {
             match.close();
         }
