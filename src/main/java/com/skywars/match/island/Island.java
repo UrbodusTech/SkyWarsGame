@@ -13,5 +13,4 @@ public class Island {
 
     private final Vector3 spawn;
     private Player owner = null;
-    private boolean destroyed = false;
 }

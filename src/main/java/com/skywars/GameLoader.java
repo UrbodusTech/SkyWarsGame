@@ -9,7 +9,9 @@ import com.skywars.extension.ExtensionManager;
 import com.skywars.lang.LangManager;
 import com.skywars.listener.GameBlockListener;
 import com.skywars.listener.GameEntityListener;
+import com.skywars.listener.GameInventoryListener;
 import com.skywars.listener.GamePlayerListener;
+import com.skywars.loot.LootManager;
 import com.skywars.match.MatchManager;
 import com.skywars.session.SessionManager;
 import com.skywars.utils.ResourceUtils;
@@ -27,6 +29,7 @@ public class GameLoader extends PluginBase {
     private MatchManager matchManager;
     private SessionManager sessionManager;
     private GameCommandManager commandManager;
+    private LootManager lootManager;
 
     @Override
     public void onLoad() {
@@ -50,6 +53,9 @@ public class GameLoader extends PluginBase {
         commandManager = new GameCommandManager();
         commandManager.init();
 
+        lootManager = new LootManager();
+        lootManager.init();
+
         if (getConfig().getBoolean("join-command-method")) {
             NativeSkyWarsCommand command = new NativeSkyWarsCommand();
             getServer().getCommandMap().register(command.getName(), command);
@@ -59,6 +65,7 @@ public class GameLoader extends PluginBase {
         manager.registerEvents(new GameBlockListener(), this);
         manager.registerEvents(new GamePlayerListener(), this);
         manager.registerEvents(new GameEntityListener(), this);
+        manager.registerEvents(new GameInventoryListener(), this);
 
         if (getConfig().getBoolean("extension-actions")) {
             extensionManager = new ExtensionManager();

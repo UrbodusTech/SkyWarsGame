@@ -37,7 +37,7 @@ public class InGamePhase extends Phase {
 
         if (timer.isFinished()) {
             if (timer.getRepeats() < getMatch().getData().getMaxTimerRepetitions()) {
-                // TODO refill chests
+                getMatch().refillChests();
                 timer.restart();
             } else {
                 finishedGame = true; // Advance to the next phase because the time is finished

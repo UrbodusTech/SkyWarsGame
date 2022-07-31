@@ -4,6 +4,7 @@ import cn.nukkit.Server;
 import com.skywars.GameLoader;
 import com.skywars.command.GameCommandManager;
 import com.skywars.lang.LangManager;
+import com.skywars.loot.LootManager;
 import com.skywars.match.MatchManager;
 import com.skywars.session.SessionManager;
 import lombok.Getter;
@@ -65,15 +66,15 @@ public abstract class Extension {
     public abstract void uninstall();
 
     public MatchManager getMatchManager() {
-        return GameLoader.getInstance().getMatchManager();
+        return getMain().getMatchManager();
     }
 
     public LangManager getLangManager() {
-        return GameLoader.getInstance().getLangManager();
+        return getMain().getLangManager();
     }
 
     public SessionManager getSessionManager() {
-        return GameLoader.getInstance().getSessionManager();
+        return getMain().getSessionManager();
     }
 
     public Server getServer() {
@@ -81,6 +82,14 @@ public abstract class Extension {
     }
 
     public GameCommandManager getCommandManager() {
-        return GameLoader.getInstance().getCommandManager();
+        return getMain().getCommandManager();
+    }
+
+    public LootManager getLootManager() {
+        return getMain().getLootManager();
+    }
+
+    public GameLoader getMain() {
+        return GameLoader.getInstance();
     }
 }

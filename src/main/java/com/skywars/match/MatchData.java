@@ -23,9 +23,13 @@ public class MatchData {
      * Match Positions Data
      * islandSpawn: Island positions
      * minLayer: Indicates until which layer Y the map is limited, once the player is in this layer 0 minor will be considered death by void, if layer <= 0 then layer = 2
+     * islandChests: Exact positions of the island chests
+     * otherChests: Exact positions of the remaining chests
      */
     private List<Integer[]> islandSpawn;
     private Integer minLayer;
+    private List<Integer[]> islandChests;
+    private List<Integer[]> otherChests;
 
     /*
      * Basic Configuration

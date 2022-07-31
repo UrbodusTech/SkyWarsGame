@@ -2,9 +2,15 @@ package com.skywars.match;
 
 import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityChest;
+import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import com.skywars.GameLoader;
+import com.skywars.loot.Loot;
+import com.skywars.loot.LootManager;
+import com.skywars.loot.LootType;
 import com.skywars.tick.ResetMatchTick;
 import com.skywars.utils.LangUtils;
 import com.skywars.match.island.Island;
@@ -201,5 +207,58 @@ public class Match extends IslandStorage {
         }
 
         return false;
+    }
+
+    public void refillChests() {
+        refillIslandChests();
+        refillOtherChests();
+    }
+
+    private void refillIslandChests() {
+        for (Integer[] coords : data.getIslandChests()) {
+            if (coords.length < 3) {
+                continue;
+            }
+
+            Vector3 vector = new Vector3(coords[0], coords[1], coords[2]);
+            getAndFillChest(vector, LootType.ISLAND);
+        }
+    }
+
+    private void refillOtherChests() {
+        for (Integer[] coords : data.getOtherChests()) {
+            if (coords.length < 3) {
+                continue;
+            }
+
+            Vector3 vector = new Vector3(coords[0], coords[1], coords[2]);
+            getAndFillChest(vector, LootType.OTHER);
+        }
+    }
+
+    private void getAndFillChest(Vector3 vector3, LootType type) {
+        Level level = LevelUtils.getSkyWarsLevel(uuid);
+        if (level == null) {
+            return;
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(vector3);
+        if (!(blockEntity instanceof BlockEntityChest)) {
+            return;
+        }
+
+        LootManager manager = GameLoader.getInstance().getLootManager();
+        Loot loot;
+        if (type == LootType.ISLAND) {
+            loot = manager.getRandomLootIsland();
+        } else {
+            loot = manager.getRandomLootOther();
+        }
+
+        if (loot == null) {
+            return;
+        }
+
+        loot.fillChest(((BlockEntityChest) blockEntity).getRealInventory());
     }
 }

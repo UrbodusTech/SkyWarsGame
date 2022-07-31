@@ -57,6 +57,7 @@ public class WaitingPhase extends Phase {
 
         if (timer.getTime() == 0) {
             getMatch().setStatus(MatchStatus.CLOSE);
+            getMatch().refillChests();
             getMatch().getBroadcast().publishSound("bubble.up");
             getMatch().getBroadcast().publishStartAttributes();
             getMatch().getBroadcast().publishTitle(

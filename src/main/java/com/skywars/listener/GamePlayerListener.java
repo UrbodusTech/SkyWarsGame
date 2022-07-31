@@ -2,7 +2,6 @@ package com.skywars.listener;
 
 import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
-import cn.nukkit.event.inventory.InventoryTransactionEvent;
 import cn.nukkit.event.player.*;
 import com.skywars.GameLoader;
 import com.skywars.match.Match;
@@ -75,13 +74,6 @@ public class GamePlayerListener extends BaseListener {
     @EventHandler
     public void onEditBook(PlayerEditBookEvent event) {
         cancelFullIfInMatch(event.getPlayer(), event);
-    }
-
-    @EventHandler
-    public void onInventory(InventoryTransactionEvent event) {
-        if (cancelIfIsWaiting(event.getTransaction().getSource(), event)) {
-            return;
-        }
     }
 
     @EventHandler
