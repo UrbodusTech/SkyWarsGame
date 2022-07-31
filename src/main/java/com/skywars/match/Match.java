@@ -128,6 +128,10 @@ public class Match extends IslandStorage {
         if (sessionManager.exists(player)) {
             GameSession session = sessionManager.getSessionByPlayer(player);
             players.remove(session);
+            if (session.getBossBar() != null) {
+                session.getBossBar().destroy();
+                session.setBossBar(null);
+            }
             sessionManager.removeGameSession(player);
 
             if (status == MatchStatus.OPEN || status == MatchStatus.FULL) {

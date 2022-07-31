@@ -37,12 +37,10 @@ public class MatchManager {
     public void close() {
         mapPool.shutdown();
 
-        while (true) {
-            try {
-                if (!mapPool.awaitTermination(Long.MAX_VALUE, TimeUnit.MICROSECONDS)) break;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            mapPool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         for (Match match : matches.values()) {

@@ -92,6 +92,21 @@ public class MatchBroadcast {
             }
 
             AttributeUtils.sendStart(session.getPlayer());
+            session.createBossBar();
+        }
+    }
+
+    public void publishBossBar(String messageId, String[] args) {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            if (session.getBossBar() == null) {
+                continue;
+            }
+
+            session.getBossBar().setText(LangUtils.translate(session.getPlayer(), messageId, args));
         }
     }
 }

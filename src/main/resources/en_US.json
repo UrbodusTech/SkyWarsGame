@@ -13,5 +13,6 @@
   "INVALID_COMMAND": "&cCommand not valid use &4!help &cto get a list of commands",
   "HELP_COMMAND_DESCRIPTION": "Get a list of commands",
   "EXIT_COMMAND_DESCRIPTION": "Exit current match",
-  "MAThC_USE_EXIT": "&eUse &b!exit &eto exit the game"
+  "MAThC_USE_EXIT": "&eUse &b!exit &eto exit the game",
+  "BOSSBAR_TIME": "&eRefill Chests: &b{0}"
 }

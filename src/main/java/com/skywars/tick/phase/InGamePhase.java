@@ -13,6 +13,7 @@ public class InGamePhase extends Phase {
         super(match);
 
         timer = new Timer(match.getData().getCountDownTimerSeconds());
+        timer.start();
     }
 
     @Override
@@ -33,7 +34,6 @@ public class InGamePhase extends Phase {
         }
 
 
-
-
+        getMatch().getBroadcast().publishBossBar("BOSSBAR_TIME", new String[]{timer.format()});
     }
 }
