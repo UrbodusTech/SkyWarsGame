@@ -19,5 +19,6 @@
   "LOST_SCREEN": "&9You Lost",
   "WINNER_SCREEN": "&9You Win",
   "NO_WINNERS_SCREEN": "No Winners",
-  "BEST_LUCK_SUB_SCREEN": "&7Keep trying"
+  "BEST_LUCK_SUB_SCREEN": "&7Keep trying",
+  "PLAYER_ELIMINATED": "&4{0} eliminated!"
 }

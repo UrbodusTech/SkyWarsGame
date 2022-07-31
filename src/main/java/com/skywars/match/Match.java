@@ -35,6 +35,7 @@ public class Match extends IslandStorage {
     private final MatchTick tick;
 
     private GameSession winner = null;
+    private final List<String> spectatorsNames;
 
     public Match(UUID uuid, MatchData data) {
         super(data);
@@ -42,6 +43,7 @@ public class Match extends IslandStorage {
         this.data = data;
 
         players = new ArrayList<>();
+        spectatorsNames = new ArrayList<>();
         broadcast = new MatchBroadcast(this);
         tick = new MatchTick(this);
     }
@@ -148,5 +150,64 @@ public class Match extends IslandStorage {
         }
 
         tick.check();
+    }
+
+    public void addSpectator(Player player) {
+        spectatorsNames.add(player.getName());
+        AttributeUtils.sendSpectator(player);
+        player.teleport(player.getPosition().add(0, 2, 0));
+        player.sendTitle(
+                LangUtils.translate(player, "LOST_SCREEN"),
+                LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
+        );
+        broadcast.publishPopup("PLAYER_ELIMINATED", new String[]{player.getName()});
+    }
+
+    private int getAlivePlayersSize() {
+        int amount = (players.size() - spectatorsNames.size());
+        if (amount < 0) {
+            amount = 0;
+        }
+
+        return amount;
+    }
+
+    private GameSession tryObtainWinner() {
+        for (GameSession session : players) {
+            if (session == null) {
+                continue;
+            }
+
+            if (session.getPlayer() == null) {
+                continue;
+            }
+
+            if (spectatorsNames.contains(session.getPlayer().getName())) {
+                continue;
+            }
+
+            if (session.getPlayer().getGamemode() == Player.SURVIVAL) {
+                return session;
+            }
+        }
+
+        return null;
+    }
+
+    /*
+     * Return true if tick can continue to the next phase
+     */
+    public boolean checkForWinner() {
+        if (getAlivePlayersSize() == 0) {
+            return true;
+        }
+
+        if (getAlivePlayersSize() == 1) {
+            winner = tryObtainWinner();
+
+            return true;
+        }
+
+        return false;
     }
 }

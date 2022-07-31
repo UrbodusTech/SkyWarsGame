@@ -35,8 +35,8 @@ public class InGamePhase extends Phase {
         }
 
         getMatch().getBroadcast().publishBossBar("BOSSBAR_TIME", new String[]{timer.format()});
-        if (getMatch().getWinner() != null) {
-            finishedGame = true; // Advance to the next phase because there is a winner
+        if (getMatch().checkForWinner()) {
+            finishedGame = true;
         }
     }
 }

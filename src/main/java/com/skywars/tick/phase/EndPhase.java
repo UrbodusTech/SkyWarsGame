@@ -8,6 +8,7 @@ import lombok.NonNull;
 public class EndPhase extends Phase {
 
     private final Timer timer;
+    private boolean sendResults = false;
 
     public EndPhase(@NonNull Match match) {
         super(match);
@@ -24,18 +25,13 @@ public class EndPhase extends Phase {
     @Override
     public void execute() {
         timer.down();
+        if (!sendResults) {
+            getMatch().getBroadcast().publishResults();
+            sendResults = true;
+        }
+
         if (timer.isFinished()) {
-           for (GameSession session : getMatch().getPlayers()) {
-               if (session == null) {
-                   continue;
-               }
-
-               if (session.getPlayer() == null) {
-                   continue;
-               }
-
-               getMatch().removePlayer(session.getPlayer());
-           }
+            getMatch().getBroadcast().publishRemove();
 
            return;
         }

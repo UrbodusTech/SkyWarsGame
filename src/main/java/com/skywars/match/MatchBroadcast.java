@@ -66,6 +66,19 @@ public class MatchBroadcast {
         }
     }
 
+    public void publishTitle(String titleId, String[] titleArgs) {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            session.getPlayer().sendTitle(
+                    LangUtils.translate(session.getPlayer(), titleId, titleArgs),
+                    " "
+            );
+        }
+    }
+
     public void publishSound(String sound) {
         for (GameSession session : match.getPlayers()) {
             if (!checkConditions(session)) {
@@ -107,6 +120,38 @@ public class MatchBroadcast {
             }
 
             session.getBossBar().setText(LangUtils.translate(session.getPlayer(), messageId, args));
+        }
+    }
+
+    public void publishResults() {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            if (match.getWinner() == null) {
+                publishTitle("NO_WINNERS_SCREEN", new String[0], "PLAYER_ELIMINATED", new String[0]);
+
+                continue;
+            }
+
+            if (match.getWinner() == session) {
+                publishTitle("WINNER_SCREEN", new String[0]);
+
+                continue;
+            }
+
+            publishTitle("LOST_SCREEN", new String[0], "PLAYER_ELIMINATED", new String[0]);
+        }
+    }
+
+    public void publishRemove() {
+        for (GameSession session : match.getPlayers()) {
+            if (!checkConditions(session)) {
+                continue;
+            }
+
+            match.removePlayer(session.getPlayer());
         }
     }
 }
