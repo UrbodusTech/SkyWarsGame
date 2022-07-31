@@ -126,7 +126,7 @@ public class Match extends IslandStorage {
         player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
         AttributeUtils.sendInitialJoin(player);
         broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
-        player.sendMessage(LangUtils.translate(player, "MAThC_USE_EXIT"));
+        player.sendMessage(LangUtils.translate(player, "MATCH_USE_EXIT"));
         tick.check();
     }
 
@@ -166,10 +166,7 @@ public class Match extends IslandStorage {
         AttributeUtils.sendSpectator(player);
         aliveNames.remove(player.getName());
         player.teleport(player.getPosition().add(0, 12, 0));
-        player.sendTitle(
-                LangUtils.translate(player, "LOST_SCREEN"),
-                LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
-        );
+        player.sendMessage(LangUtils.translate(player, "MATCH_USE_EXIT"));
         broadcast.publishPopup("PLAYER_ELIMINATED", new String[]{player.getName(), String.valueOf(aliveNames.size())});
         broadcast.publishSound("block.turtle_egg.break");
     }

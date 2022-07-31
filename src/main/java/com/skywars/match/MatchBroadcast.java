@@ -3,6 +3,7 @@ package com.skywars.match;
 import cn.nukkit.Player;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.Vector3;
+import cn.nukkit.network.protocol.OnScreenTextureAnimationPacket;
 import cn.nukkit.network.protocol.PlaySoundPacket;
 import com.skywars.utils.AttributeUtils;
 import com.skywars.utils.LangUtils;
@@ -139,6 +140,9 @@ public class MatchBroadcast {
                         LangUtils.translate(player, "NO_WINNERS_SCREEN"),
                         LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
                 );
+                OnScreenTextureAnimationPacket packet = new OnScreenTextureAnimationPacket();
+                packet.effectId = 3;
+                player.dataPacket(packet);
 
                 continue;
             }
@@ -148,14 +152,20 @@ public class MatchBroadcast {
                         LangUtils.translate(player, "WINNER_SCREEN"),
                         " "
                 );
+                OnScreenTextureAnimationPacket packet = new OnScreenTextureAnimationPacket();
+                packet.effectId = 22;
+                player.dataPacket(packet);
 
                 continue;
             }
 
             player.sendTitle(
-                    LangUtils.translate(player, "NO_WINNERS_SCREEN"),
+                    LangUtils.translate(player, "LOST_SCREEN"),
                     LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
             );
+            OnScreenTextureAnimationPacket packet = new OnScreenTextureAnimationPacket();
+            packet.effectId = 18;
+            player.dataPacket(packet);
         }
     }
 
