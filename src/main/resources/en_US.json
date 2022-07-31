@@ -7,7 +7,7 @@
   "PLAYER_LEFT": "&b{0} &eleft the game [&b{1}&e/&b{2}&e]",
   "BLOCKED_COMMANDS": "&cCommands are blocked in this game, use !help to get a list of internal game commands.",
   "WAITING_STATS_STARTING": "&e(&b{0}&e/&b{1}&e)&7: &a{2}",
-  "WAITING_STATS_": "&e(&b{0}&e/&b{1}&e)&7: &cWaiting Players",
+  "WAITING_STATS_LEFT": "&e(&b{0}&e/&b{1}&e)&7: &cWaiting Players",
   "AUTHOR_TITLE_MAP": "&9{0}",
   "AUTHOR_TITLE_MAP_NAME": "&7By {0}",
   "INVALID_COMMAND": "&cCommand not valid use &4!help &cto get a list of commands",
@@ -18,7 +18,7 @@
   "BOSSBAR_GAME_END": "&eGame End: &b{0}",
   "LOST_SCREEN": "&9You Lost",
   "WINNER_SCREEN": "&9You Win",
-  "NO_WINNERS_SCREEN": "No Winners",
+  "NO_WINNERS_SCREEN": "&9No Winners",
   "BEST_LUCK_SUB_SCREEN": "&7Keep trying",
-  "PLAYER_ELIMINATED": "&4{0} eliminated!"
+  "PLAYER_ELIMINATED": "&4{0} eliminated! {1} players remaining"
 }

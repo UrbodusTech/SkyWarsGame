@@ -101,4 +101,17 @@ public class GamePlayerListener extends BaseListener {
         GameLoader.getInstance().getCommandManager().processCommand(session, message);
         event.setCancelled(true);
     }
+
+    @EventHandler
+    public void onMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+        Match match = getMatchByPlayer(player);
+        if (match == null) {
+            return;
+        }
+
+        if (player.getPosition().y <= match.getData().getMinLayer()) {
+            match.addSpectator(player);
+        }
+    }
 }

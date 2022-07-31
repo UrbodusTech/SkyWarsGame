@@ -1,10 +1,13 @@
 package com.skywars.match;
 
+import cn.nukkit.Player;
+import cn.nukkit.level.Level;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.PlaySoundPacket;
 import com.skywars.utils.AttributeUtils;
 import com.skywars.utils.LangUtils;
 import com.skywars.session.GameSession;
+import com.skywars.utils.LevelUtils;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -59,9 +62,10 @@ public class MatchBroadcast {
                 continue;
             }
 
-            session.getPlayer().sendTitle(
-                    LangUtils.translate(session.getPlayer(), titleId, titleArgs),
-                    LangUtils.translate(session.getPlayer(), subTitleId, subtitleArgs)
+            Player player = session.getPlayer();
+            player.sendTitle(
+                    LangUtils.translate(player, titleId, titleArgs),
+                    LangUtils.translate(player, subTitleId, subtitleArgs)
             );
         }
     }
@@ -129,29 +133,40 @@ public class MatchBroadcast {
                 continue;
             }
 
-            if (match.getWinner() == null) {
-                publishTitle("NO_WINNERS_SCREEN", new String[0], "PLAYER_ELIMINATED", new String[0]);
+            Player player = session.getPlayer();
+            if (match.getWinnerName() == null) {
+                player.sendTitle(
+                        LangUtils.translate(player, "NO_WINNERS_SCREEN"),
+                        LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
+                );
 
                 continue;
             }
 
-            if (match.getWinner() == session) {
-                publishTitle("WINNER_SCREEN", new String[0]);
+            if (session.getPlayer().getName().equals(match.getWinnerName())) {
+                player.sendTitle(
+                        LangUtils.translate(player, "WINNER_SCREEN"),
+                        " "
+                );
 
                 continue;
             }
 
-            publishTitle("LOST_SCREEN", new String[0], "PLAYER_ELIMINATED", new String[0]);
+            player.sendTitle(
+                    LangUtils.translate(player, "NO_WINNERS_SCREEN"),
+                    LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
+            );
         }
     }
 
     public void publishRemove() {
-        for (GameSession session : match.getPlayers()) {
-            if (!checkConditions(session)) {
-                continue;
-            }
+        Level level = LevelUtils.getSkyWarsLevel(match.getUuid());
+        if (level == null) {
+            return;
+        }
 
-            match.removePlayer(session.getPlayer());
+        for (Player player : level.getPlayers().values()) {
+            match.removePlayer(player);
         }
     }
 }

@@ -5,6 +5,7 @@ import cn.nukkit.entity.Entity;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityShootBowEvent;
+import com.skywars.match.Match;
 
 public class GameEntityListener extends BaseListener {
 
@@ -15,8 +16,19 @@ public class GameEntityListener extends BaseListener {
             return;
         }
 
+        Player player = ((Player) entity);
         if (cancelIfIsWaiting(((Player) entity), event)) {
             return;
+        }
+
+        Match match = getMatchByPlayer(player);
+        if (match == null) {
+            return;
+        }
+
+        if (event.getFinalDamage() >= player.getHealth()) {
+            event.setCancelled(true);
+            match.addSpectator(player);
         }
     }
 
@@ -27,7 +39,8 @@ public class GameEntityListener extends BaseListener {
             return;
         }
 
-        if (cancelIfIsWaiting(((Player) entity), event)) {
+        Player player = ((Player) entity);
+        if (cancelIfIsWaiting(player, event)) {
             return;
         }
     }

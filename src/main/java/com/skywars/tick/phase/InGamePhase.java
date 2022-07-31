@@ -25,6 +25,16 @@ public class InGamePhase extends Phase {
     @Override
     public void execute() {
         timer.down();
+
+        if (getMatch().checkForWinner()) {
+            getMatch().getBroadcast().publishResults();
+            getMatch().getBroadcast().publishSound("firework.launch");
+            finishedGame = true;
+
+            return;
+        }
+
+
         if (timer.isFinished()) {
             if (timer.getRepeats() < getMatch().getData().getMaxTimerRepetitions()) {
                 // TODO refill chests
@@ -35,8 +45,5 @@ public class InGamePhase extends Phase {
         }
 
         getMatch().getBroadcast().publishBossBar("BOSSBAR_TIME", new String[]{timer.format()});
-        if (getMatch().checkForWinner()) {
-            finishedGame = true;
-        }
     }
 }

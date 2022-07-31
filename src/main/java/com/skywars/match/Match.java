@@ -34,8 +34,8 @@ public class Match extends IslandStorage {
     private final MatchBroadcast broadcast;
     private final MatchTick tick;
 
-    private GameSession winner = null;
-    private final List<String> spectatorsNames;
+    private String winnerName = null;
+    private final List<String> aliveNames;
 
     public Match(UUID uuid, MatchData data) {
         super(data);
@@ -43,7 +43,7 @@ public class Match extends IslandStorage {
         this.data = data;
 
         players = new ArrayList<>();
-        spectatorsNames = new ArrayList<>();
+        aliveNames = new ArrayList<>();
         broadcast = new MatchBroadcast(this);
         tick = new MatchTick(this);
     }
@@ -59,6 +59,9 @@ public class Match extends IslandStorage {
         if (data.getMaxTimerRepetitions() == 0) {
             data.setMaxTimerRepetitions(2);
         }
+        if (data.getMinLayer() <= 0) {
+            data.setMinLayer(2);
+        }
 
         LevelUtils.loadSkyWarsLevel(uuid);
     }
@@ -70,8 +73,9 @@ public class Match extends IslandStorage {
 
     public void reset() {
         status = MatchStatus.RESETTING;
-        winner = null;
+        winnerName = null;
         players.clear();
+        aliveNames.clear();
         GameLoader.getInstance().getMatchManager()
                 .getMapPool()
                 .execute(new ResetMatchTick(this));
@@ -111,6 +115,7 @@ public class Match extends IslandStorage {
         session.setCurrentMatch(this);
         session.setIsland(island);
         players.add(session);
+        aliveNames.add(player.getName());
 
         if (players.size() >= data.getIslandSpawn().size()) {
             status = MatchStatus.FULL;
@@ -134,6 +139,7 @@ public class Match extends IslandStorage {
         if (sessionManager.exists(player)) {
             GameSession session = sessionManager.getSessionByPlayer(player);
             players.remove(session);
+            aliveNames.remove(player.getName());
             if (session.getBossBar() != null) {
                 session.getBossBar().destroy();
                 session.setBossBar(null);
@@ -153,41 +159,30 @@ public class Match extends IslandStorage {
     }
 
     public void addSpectator(Player player) {
-        spectatorsNames.add(player.getName());
+        if (!aliveNames.contains(player.getName())) {
+            return;
+        }
+
         AttributeUtils.sendSpectator(player);
-        player.teleport(player.getPosition().add(0, 2, 0));
+        aliveNames.remove(player.getName());
+        player.teleport(player.getPosition().add(0, 12, 0));
         player.sendTitle(
                 LangUtils.translate(player, "LOST_SCREEN"),
                 LangUtils.translate(player, "BEST_LUCK_SUB_SCREEN")
         );
-        broadcast.publishPopup("PLAYER_ELIMINATED", new String[]{player.getName()});
+        broadcast.publishPopup("PLAYER_ELIMINATED", new String[]{player.getName(), String.valueOf(aliveNames.size())});
+        broadcast.publishSound("block.turtle_egg.break");
     }
 
-    private int getAlivePlayersSize() {
-        int amount = (players.size() - spectatorsNames.size());
-        if (amount < 0) {
-            amount = 0;
-        }
-
-        return amount;
-    }
-
-    private GameSession tryObtainWinner() {
-        for (GameSession session : players) {
-            if (session == null) {
+    private String tryObtainWinner() {
+        for (String candidate : aliveNames) {
+            Player player = Server.getInstance().getPlayerExact(candidate);
+            if (player == null) {
                 continue;
             }
 
-            if (session.getPlayer() == null) {
-                continue;
-            }
-
-            if (spectatorsNames.contains(session.getPlayer().getName())) {
-                continue;
-            }
-
-            if (session.getPlayer().getGamemode() == Player.SURVIVAL) {
-                return session;
+            if (player.getGamemode() == Player.SURVIVAL) {
+                return candidate;
             }
         }
 
@@ -195,15 +190,15 @@ public class Match extends IslandStorage {
     }
 
     /*
-     * Return true if tick can continue to the next phase
+     * Return true if in-game tick can continue to the next phase
      */
     public boolean checkForWinner() {
-        if (getAlivePlayersSize() == 0) {
+        if (aliveNames.size() == 0) {
             return true;
         }
 
-        if (getAlivePlayersSize() == 1) {
-            winner = tryObtainWinner();
+        if (aliveNames.size() == 1) {
+            winnerName = tryObtainWinner();
 
             return true;
         }

@@ -32,7 +32,7 @@ public class WaitingPhase extends Phase {
                 timer.restart();
             }
 
-            getMatch().getBroadcast().publishPopup("WAITING_STATS_STARTING", new String[]{
+            getMatch().getBroadcast().publishPopup("WAITING_STATS_LEFT", new String[]{
                     String.valueOf(getMatch().getPlayingSize()),
                     String.valueOf(getMatch().getMaxSlots())
             });
