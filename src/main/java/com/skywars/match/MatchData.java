@@ -22,10 +22,8 @@ public class MatchData {
     /*
      * Match Positions Data
      * islandSpawn: Island positions
-     * spectatorSpawn: The Spectator Spawn
      */
     private List<Integer[]> islandSpawn;
-    private Integer[] spectatorSpawn;
 
     /*
      * Basic Configuration

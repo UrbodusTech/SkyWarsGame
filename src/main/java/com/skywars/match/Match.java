@@ -34,6 +34,8 @@ public class Match extends IslandStorage {
     private final MatchBroadcast broadcast;
     private final MatchTick tick;
 
+    private GameSession winner = null;
+
     public Match(UUID uuid, MatchData data) {
         super(data);
         this.uuid = uuid;
@@ -66,6 +68,8 @@ public class Match extends IslandStorage {
 
     public void reset() {
         status = MatchStatus.RESETTING;
+        winner = null;
+        players.clear();
         GameLoader.getInstance().getMatchManager()
                 .getMapPool()
                 .execute(new ResetMatchTick(this));

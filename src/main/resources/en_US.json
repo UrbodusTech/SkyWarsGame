@@ -14,5 +14,10 @@
   "HELP_COMMAND_DESCRIPTION": "Get a list of commands",
   "EXIT_COMMAND_DESCRIPTION": "Exit current match",
   "MAThC_USE_EXIT": "&eUse &b!exit &eto exit the game",
-  "BOSSBAR_TIME": "&eRefill Chests: &b{0}"
+  "BOSSBAR_TIME": "&eRefill Chests: &b{0}",
+  "BOSSBAR_GAME_END": "&eGame End: &b{0}",
+  "LOST_SCREEN": "&9You Lost",
+  "WINNER_SCREEN": "&9You Win",
+  "NO_WINNERS_SCREEN": "No Winners",
+  "BEST_LUCK_SUB_SCREEN": "&7Keep trying"
 }

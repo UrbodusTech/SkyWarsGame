@@ -1,6 +1,7 @@
 package com.skywars.extension;
 
 import cn.nukkit.plugin.PluginLogger;
+import cn.nukkit.utils.TextFormat;
 import com.skywars.GameLoader;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
@@ -98,6 +99,7 @@ public class ExtensionManager {
 
         extensions.put(extension.toString(), extension);
         extension.setEnabled(true);
+        extension.getLogger().info(TextFormat.colorize("&aInstalled!"));
     }
 
     private boolean addExtensionLoader(ExtensionLoader loader) {
@@ -107,6 +109,7 @@ public class ExtensionManager {
     public void close() {
         for (Extension extension : extensions.values()) {
             extension.setEnabled(false);
+            extension.getLogger().info(TextFormat.colorize("&cUnInstalled!"));
         }
 
         extensions.clear();

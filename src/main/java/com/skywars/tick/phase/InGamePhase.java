@@ -8,6 +8,7 @@ import lombok.NonNull;
 public class InGamePhase extends Phase {
 
     private final Timer timer;
+    private boolean finishedGame = false;
 
     public InGamePhase(@NonNull Match match) {
         super(match);
@@ -18,7 +19,7 @@ public class InGamePhase extends Phase {
 
     @Override
     public boolean preconditions() {
-        return getMatch().getStatus() == MatchStatus.CLOSE;
+        return getMatch().getStatus() == MatchStatus.CLOSE && !finishedGame;
     }
 
     @Override
@@ -29,11 +30,13 @@ public class InGamePhase extends Phase {
                 // TODO refill chests
                 timer.restart();
             } else {
-                // TODO stop match
+                finishedGame = true; // Advance to the next phase because the time is finished
             }
         }
 
-
         getMatch().getBroadcast().publishBossBar("BOSSBAR_TIME", new String[]{timer.format()});
+        if (getMatch().getWinner() != null) {
+            finishedGame = true; // Advance to the next phase because there is a winner
+        }
     }
 }

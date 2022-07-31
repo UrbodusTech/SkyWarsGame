@@ -22,6 +22,7 @@ public final class AttributeUtils {
         player.setHealth(20);
         player.getEffects().clear();
         player.setImmobile(false);
+        player.setGamemode(Player.SURVIVAL);
     }
 
     public static void sendInitialJoin(Player player) {
@@ -34,5 +35,11 @@ public final class AttributeUtils {
     public static void sendStart(Player player) {
         player.setFoodEnabled(true);
         player.setImmobile(false);
+    }
+
+    public static void sendSpectator(Player player) {
+        sendDefault(player);
+        player.setFoodEnabled(false);
+        player.setGamemode(Player.SPECTATOR);
     }
 }
