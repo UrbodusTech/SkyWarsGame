@@ -36,3 +36,13 @@ If you have any questions or bugs to report you can contact me on Discord: Josew
 ☕ <a href="https://www.buymeacoffee.com/joseluishd">buy me a coffee</a>
 
 # 🏹 Wiki
+- <a href="">Explanation of the config.yml file</a>
+- <a href="">Set up a map</a>
+- <a href="">Install language support</a>
+- <a href="">Explanation of extensions</a>
+- <a href="">Create an extension</a>
+- <a href="">Match Commands<a href="">
+- <a href="">Match Events</a>
+- <a href="">Player Events</a>
+- <a href="">Session Events</a>
+- <a href="">Add messages to a lang file from an extension</a>
