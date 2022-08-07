@@ -5,7 +5,10 @@ import cn.nukkit.level.Level;
 import cn.nukkit.math.Vector3;
 import cn.nukkit.network.protocol.OnScreenTextureAnimationPacket;
 import cn.nukkit.network.protocol.PlaySoundPacket;
+import com.skywars.event.player.PlayerLostMatchEvent;
+import com.skywars.event.player.PlayerWinMachEvent;
 import com.skywars.utils.AttributeUtils;
+import com.skywars.utils.EventUtils;
 import com.skywars.utils.LangUtils;
 import com.skywars.session.GameSession;
 import com.skywars.utils.LevelUtils;
@@ -155,6 +158,7 @@ public class MatchBroadcast {
                 OnScreenTextureAnimationPacket packet = new OnScreenTextureAnimationPacket();
                 packet.effectId = 22;
                 player.dataPacket(packet);
+                EventUtils.callEvent(new PlayerWinMachEvent(player, match));
 
                 continue;
             }
@@ -166,6 +170,7 @@ public class MatchBroadcast {
             OnScreenTextureAnimationPacket packet = new OnScreenTextureAnimationPacket();
             packet.effectId = 18;
             player.dataPacket(packet);
+            EventUtils.callEvent(new PlayerLostMatchEvent(player, match));
         }
     }
 

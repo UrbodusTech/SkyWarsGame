@@ -8,18 +8,22 @@ import cn.nukkit.level.Level;
 import cn.nukkit.level.Position;
 import cn.nukkit.math.Vector3;
 import com.skywars.GameLoader;
+import com.skywars.event.match.MatchCloseEvent;
+import com.skywars.event.match.MatchOpenEvent;
+import com.skywars.event.match.MatchRefillChestsEvent;
+import com.skywars.event.match.MatchStartResetEvent;
+import com.skywars.event.player.PlayerConvertSpectatorEvent;
+import com.skywars.event.player.PlayerJoinMatchEvent;
+import com.skywars.event.player.PlayerQuitMatchEvent;
 import com.skywars.loot.Loot;
 import com.skywars.loot.LootManager;
 import com.skywars.loot.LootType;
 import com.skywars.tick.ResetMatchTick;
-import com.skywars.utils.LangUtils;
+import com.skywars.utils.*;
 import com.skywars.match.island.Island;
 import com.skywars.match.island.IslandStorage;
 import com.skywars.session.GameSession;
 import com.skywars.session.SessionManager;
-import com.skywars.utils.AttributeUtils;
-import com.skywars.utils.LevelUtils;
-import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -70,14 +74,17 @@ public class Match extends IslandStorage {
         }
 
         LevelUtils.loadSkyWarsLevel(uuid);
+        EventUtils.callEvent(new MatchOpenEvent(this));
     }
 
     public void close() {
         LevelUtils.unloadSkyWarsLevel(uuid);
         ResourceUtils.deleteMatchMap(this);
+        EventUtils.callEvent(new MatchCloseEvent(this));
     }
 
     public void reset() {
+        EventUtils.callEvent(new MatchStartResetEvent(this));
         status = MatchStatus.RESETTING;
         winnerName = null;
         players.clear();
@@ -133,6 +140,7 @@ public class Match extends IslandStorage {
         AttributeUtils.sendInitialJoin(player);
         broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
         player.sendMessage(LangUtils.translate(player, "MATCH_USE_EXIT"));
+        EventUtils.callEvent(new PlayerJoinMatchEvent(player, this, island));
         tick.check();
     }
 
@@ -161,6 +169,7 @@ public class Match extends IslandStorage {
             }
         }
 
+        EventUtils.callEvent(new PlayerQuitMatchEvent(player, this));
         tick.check();
     }
 
@@ -175,6 +184,7 @@ public class Match extends IslandStorage {
         player.sendMessage(LangUtils.translate(player, "MATCH_USE_EXIT"));
         broadcast.publishPopup("PLAYER_ELIMINATED", new String[]{player.getName(), String.valueOf(aliveNames.size())});
         broadcast.publishSound("block.turtle_egg.break");
+        EventUtils.callEvent(new PlayerConvertSpectatorEvent(player, this));
     }
 
     private String tryObtainWinner() {
@@ -210,6 +220,13 @@ public class Match extends IslandStorage {
     }
 
     public void refillChests() {
+        MatchRefillChestsEvent event = new MatchRefillChestsEvent(this);
+        EventUtils.callEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
+
         refillIslandChests();
         refillOtherChests();
     }

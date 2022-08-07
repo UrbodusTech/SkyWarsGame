@@ -2,7 +2,9 @@ package com.skywars.command;
 
 import com.skywars.command.defaults.ExitCommand;
 import com.skywars.command.defaults.HelpCommand;
+import com.skywars.event.session.SessionExecuteCommandEvent;
 import com.skywars.session.GameSession;
+import com.skywars.utils.EventUtils;
 import com.skywars.utils.LangUtils;
 import lombok.Getter;
 
@@ -54,6 +56,13 @@ public class GameCommandManager {
         int argsLen = (split.length - 1);
         String[] args = new String[argsLen];
         System.arraycopy(split, 1, args, 0, argsLen);
+
+        SessionExecuteCommandEvent event = new SessionExecuteCommandEvent(session, session.getCurrentMatch(), prefix, args);
+        EventUtils.callEvent(event);
+
+        if (event.isCancelled()) {
+            return;
+        }
 
         command.execute(session, args);
     }

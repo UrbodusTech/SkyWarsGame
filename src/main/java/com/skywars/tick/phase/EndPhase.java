@@ -1,7 +1,9 @@
 package com.skywars.tick.phase;
 
+import com.skywars.event.match.MatchEndEvent;
 import com.skywars.match.Match;
 import com.skywars.tick.Timer;
+import com.skywars.utils.EventUtils;
 import lombok.NonNull;
 
 public class EndPhase extends Phase {
@@ -26,6 +28,7 @@ public class EndPhase extends Phase {
 
         if (timer.isFinished()) {
             getMatch().getBroadcast().publishRemove();
+            EventUtils.callEvent(new MatchEndEvent(getMatch()));
 
            return;
         }

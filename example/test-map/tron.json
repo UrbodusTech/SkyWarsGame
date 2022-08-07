@@ -1,0 +1,27 @@
+{
+  "name": "Tron",
+  "author": "CubeCraft",
+  "mapDirName": "tron-map",
+  "islandSpawn": [
+    [27969, 20, 17],
+    [27980, 20, 29]
+  ],
+  "islandChests": [
+    [27969, 20, 18],
+    [27969, 20, 14],
+    [27982, 20, 27],
+    [27978, 20, 27]
+  ],
+  "otherChests": [
+    [27995, 20, 9],
+    [28002, 20, 9],
+    [28006, 20, 9],
+    [28008, 20, 11]
+  ],
+  "minLayer": 2,
+  "countDownSeconds": 30,
+  "countDownMinPlayers": 2,
+  "countDownEnd": 10,
+  "maxTimerRepetitions": 3,
+  "countDownTimerSeconds": 300
+}

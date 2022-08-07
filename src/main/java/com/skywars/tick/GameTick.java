@@ -5,7 +5,9 @@ import com.skywars.tick.phase.EndPhase;
 import com.skywars.tick.phase.InGamePhase;
 import com.skywars.tick.phase.Phase;
 import com.skywars.tick.phase.WaitingPhase;
+import lombok.Getter;
 
+@Getter
 public class GameTick implements Runnable {
 
     private final Phase waitingPhase;

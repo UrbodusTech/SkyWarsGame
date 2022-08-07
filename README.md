@@ -19,6 +19,8 @@ mvn clean package
 ```
 
 ## 🛠 Contributions
+We will continue to maintain the game adding what the community asks for and fixing bugs. <br>
+
 All contributions are welcome, to facilitate the review process 3 things will be checked:<br>
 - Don't use the main (release) branch, use another branch, so we can test the changes.
 - Add a description of the changes/bug fixes.

@@ -1,8 +1,10 @@
 package com.skywars.tick.phase;
 
+import com.skywars.event.match.MatchStartEvent;
 import com.skywars.match.Match;
 import com.skywars.match.MatchStatus;
 import com.skywars.tick.Timer;
+import com.skywars.utils.EventUtils;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -66,6 +68,8 @@ public class WaitingPhase extends Phase {
                     "AUTHOR_TITLE_MAP_NAME",
                     new String[]{getMatch().getData().getAuthor()}
             );
+
+            EventUtils.callEvent(new MatchStartEvent(getMatch()));
         }
     }
 }
