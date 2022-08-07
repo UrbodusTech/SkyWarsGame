@@ -13,7 +13,7 @@ The goal of this plugin is not focused on offering a plugin with all the feature
 
 NOTE: If you want to add your extension to the list remember to open a pull request with the changes in README.md adding your extension to the table.
 
-## 🪛 Build
+## 🛡 Build
 ```
 mvn clean package
 ```
@@ -28,7 +28,11 @@ All contributions are welcome, to facilitate the review process 3 things will be
 
 NOTE: Remember to review the pull request comments, we may add comments if necessary.
 
-## 💓 Donations
+## 💓 Support
+If you have any questions or bugs to report you can contact me on Discord: Josewowgame#7840
+
+
+## 🎁 Donations
 ☕ <a href="https://www.buymeacoffee.com/joseluishd">buy me a coffee</a>
 
-# Wiki
+# 🏹 Wiki

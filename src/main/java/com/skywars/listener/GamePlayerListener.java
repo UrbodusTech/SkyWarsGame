@@ -38,7 +38,7 @@ public class GamePlayerListener extends BaseListener {
     @EventHandler
     public void onDropItem(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
-        if (cancelIfIsWaiting(player, event)) {
+        if (cancelIfIsNecessary(player, event)) {
             return;
         }
     }
@@ -46,7 +46,7 @@ public class GamePlayerListener extends BaseListener {
     @EventHandler
     public void onEatFood(PlayerEatFoodEvent event) {
         Player player = event.getPlayer();
-        if (cancelIfIsWaiting(player, event)) {
+        if (cancelIfIsNecessary(player, event)) {
             return;
         }
     }
@@ -54,7 +54,7 @@ public class GamePlayerListener extends BaseListener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
-        if (cancelIfIsWaiting(player, event)) {
+        if (cancelIfIsNecessary(player, event)) {
             //TODO add handler for menu item
 
             return;
@@ -103,6 +103,12 @@ public class GamePlayerListener extends BaseListener {
         }
 
         if (player.getPosition().y <= match.getData().getMinLayer()) {
+            if (!match.getTick().getGameTick().getInGamePhase().preconditions()) {
+                player.teleport(player.getPosition().add(0, 20, 0));
+
+                return;
+            }
+
             match.addSpectator(player);
         }
     }

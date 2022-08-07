@@ -7,7 +7,7 @@ public class GameInventoryListener extends BaseListener {
 
     @EventHandler
     public void onInventory(InventoryTransactionEvent event) {
-        if (cancelIfIsWaiting(event.getTransaction().getSource(), event)) {
+        if (cancelIfIsNecessary(event.getTransaction().getSource(), event)) {
             return;
         }
     }

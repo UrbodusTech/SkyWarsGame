@@ -8,6 +8,7 @@ import com.skywars.GameLoader;
 import com.skywars.match.Match;
 import com.skywars.match.MatchStatus;
 import com.skywars.session.SessionManager;
+import com.skywars.tick.GameTick;
 import lombok.NonNull;
 
 public class BaseListener implements Listener {
@@ -26,7 +27,7 @@ public class BaseListener implements Listener {
         return sessionManager.getSessionByPlayer(player).getCurrentMatch();
     }
 
-    public boolean cancelIfIsWaiting(Player player, Event event) {
+    public boolean cancelIfIsNecessary(Player player, Event event) {
         Match match = getMatchByPlayer(player);
         if (match == null) {
             return false;
@@ -37,6 +38,13 @@ public class BaseListener implements Listener {
         }
 
         if (match.getStatus() == MatchStatus.OPEN || match.getStatus() == MatchStatus.FULL || match.getStatus() == MatchStatus.STARTING) {
+            event.setCancelled(true);
+
+            return true;
+        }
+
+        GameTick tick = match.getTick().getGameTick();
+        if (tick != null && !tick.getInGamePhase().preconditions()) {
             event.setCancelled(true);
 
             return true;

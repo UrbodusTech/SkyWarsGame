@@ -17,7 +17,7 @@ public class GameEntityListener extends BaseListener {
         }
 
         Player player = ((Player) entity);
-        if (cancelIfIsWaiting(((Player) entity), event)) {
+        if (cancelIfIsNecessary(((Player) entity), event)) {
             return;
         }
 
@@ -40,7 +40,7 @@ public class GameEntityListener extends BaseListener {
         }
 
         Player player = ((Player) entity);
-        if (cancelIfIsWaiting(player, event)) {
+        if (cancelIfIsNecessary(player, event)) {
             return;
         }
     }
