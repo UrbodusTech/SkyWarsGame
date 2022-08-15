@@ -43,3 +43,4 @@ NOTE: Remember to review the pull request comments, we may add comments if neces
 - <a href="">Player Events</a>
 - <a href="">Session Events</a>
 - <a href="">Add messages to a lang file from an extension</a>
+- <a href="">Chest Loot</a>
