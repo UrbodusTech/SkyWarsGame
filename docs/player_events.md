@@ -59,3 +59,15 @@ public class EventListener implements Listener {
     }
 }
 ```
+
+### PlayerBlockCommandEvent
+By default, the game blocks normal commands to avoid cheating and alterations as well as having its own system of commands, but if you need to control the blocking of commands you can cancel this event and the commands will work normally.
+```java
+public class EventListener implements Listener {
+
+    @EventHandler
+    public void onBlockCommand(PlayerBlockCommandEvent event) {
+       
+    }
+}
+```

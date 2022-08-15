@@ -4,8 +4,10 @@ import cn.nukkit.Player;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.player.*;
 import com.skywars.GameLoader;
+import com.skywars.event.player.PlayerBlockCommandEvent;
 import com.skywars.match.Match;
 import com.skywars.session.GameSession;
+import com.skywars.utils.EventUtils;
 import com.skywars.utils.LangUtils;
 
 public class GamePlayerListener extends BaseListener {
@@ -25,11 +27,20 @@ public class GamePlayerListener extends BaseListener {
     public void onCommandPreProcess(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
         Match match = getMatchByPlayer(player);
+        String command = event.getMessage();
+
         if (match == null) {
             return;
         }
 
-        if (event.getMessage().startsWith("/")) {
+        if (command.startsWith("/")) {
+            PlayerBlockCommandEvent blockCommandEvent = new PlayerBlockCommandEvent(player, match, command);
+            EventUtils.callEvent(blockCommandEvent);
+
+            if (blockCommandEvent.isCancelled()) {
+                return;
+            }
+
             player.sendMessage(LangUtils.translate(player, "BLOCKED_COMMANDS"));
             event.setCancelled(true);
         }
