@@ -39,7 +39,7 @@ jobs:
         name: SkyWars Release
         tag: v1.0
         token: ${{ secrets.GITHUB_TOKEN }}
-        body: ""
+        body: "The artifacts are kept up to date with the branch release."
         commit: ${{ github.sha }}
         allowUpdates: true
         removeArtifacts: true
