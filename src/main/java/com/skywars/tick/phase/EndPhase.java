@@ -27,8 +27,8 @@ public class EndPhase extends Phase {
         timer.down();
 
         if (timer.isFinished()) {
-            getMatch().getBroadcast().publishRemove();
             EventUtils.callEvent(new MatchEndEvent(getMatch()));
+            getMatch().getBroadcast().publishRemove();
 
            return;
         }

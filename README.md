@@ -33,14 +33,14 @@ All contributions are welcome, to facilitate the review process 3 things will be
 NOTE: Remember to review the pull request comments, we may add comments if necessary.
 
 # 🏹 Wiki
-- <a href="">Explanation of the config.yml file</a>
-- <a href="">Set up a map</a>
-- <a href="">Install language support</a>
-- <a href="">Explanation of extensions</a>
-- <a href="">Create an extension</a>
-- <a href="">Match Commands<a href="">
-- <a href="">Match Events</a>
-- <a href="">Player Events</a>
-- <a href="">Session Events</a>
-- <a href="">Add messages to a lang file from an extension</a>
-- <a href="">Chest Loot</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/config_file.md">Explanation of the config.yml file</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/setup_map.md">Set up a map</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/install_lang_file.md">Install language support</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/extensions.md">Explanation of extensions</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/setup_extension.md">Create an extension</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/match_commands.md">Match Commands<a href="">
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/match_events.md">Match Events</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/player_events.md">Player Events</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/session_events.md">Session Events</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/message_lang.md">Add messages to a lang file from an extension</a>
+- <a href="https://github.com/UrbodusTech/SkyWars/blob/release/docs/chest_loot.md">Chest Loot</a>
