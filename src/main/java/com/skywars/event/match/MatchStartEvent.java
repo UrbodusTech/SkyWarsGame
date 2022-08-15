@@ -14,4 +14,9 @@ public class MatchStartEvent extends MatchEvent {
     public MatchStartEvent(@NonNull Match match) {
         super(match);
     }
+
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

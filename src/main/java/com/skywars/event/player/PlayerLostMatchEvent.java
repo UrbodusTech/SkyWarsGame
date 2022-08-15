@@ -15,4 +15,8 @@ public class PlayerLostMatchEvent extends PlayerMatchEvent {
     public PlayerLostMatchEvent(@NonNull Player player, @NonNull Match match) {
         super(player, match);
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

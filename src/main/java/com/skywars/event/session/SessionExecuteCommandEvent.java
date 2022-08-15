@@ -22,4 +22,8 @@ public class SessionExecuteCommandEvent extends SessionMatchEvent implements Can
         this.prefix = prefix;
         this.args = args;
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

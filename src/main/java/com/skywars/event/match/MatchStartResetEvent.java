@@ -14,4 +14,8 @@ public class MatchStartResetEvent extends MatchEvent {
     public MatchStartResetEvent(@NonNull Match match) {
         super(match);
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

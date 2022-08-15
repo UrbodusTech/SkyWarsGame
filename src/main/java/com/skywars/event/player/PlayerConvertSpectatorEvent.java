@@ -15,4 +15,8 @@ public class PlayerConvertSpectatorEvent extends PlayerMatchEvent {
     public PlayerConvertSpectatorEvent(@NonNull Player player, @NonNull Match match) {
         super(player, match);
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

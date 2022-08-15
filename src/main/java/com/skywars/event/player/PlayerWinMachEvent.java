@@ -15,4 +15,8 @@ public class PlayerWinMachEvent extends PlayerMatchEvent {
     public PlayerWinMachEvent(@NonNull Player player, @NonNull Match match) {
         super(player, match);
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

@@ -10,6 +10,12 @@
         <developer>
             <name>JoseLuisHD</name>
             <url>https://github.com/JoseLuisHD</url>
+            <email>jose@urbodus.win</email>
+        </developer>
+        <developer>
+            <name>Brayan Roman</name>
+            <url>https://github.com/RomnSD</url>
+            <email>brayan@urbodus.win</email>
         </developer>
     </developers>
 

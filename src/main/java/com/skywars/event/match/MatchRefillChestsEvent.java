@@ -15,4 +15,8 @@ public class MatchRefillChestsEvent extends MatchEvent implements Cancellable {
     public MatchRefillChestsEvent(@NonNull Match match) {
         super(match);
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }

@@ -20,4 +20,8 @@ public class PlayerJoinMatchEvent extends PlayerMatchEvent {
 
         this.island = island;
     }
+
+    public static HandlerList getHandlers() {
+        return handlers;
+    }
 }
