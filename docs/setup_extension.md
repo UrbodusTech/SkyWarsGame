@@ -34,12 +34,12 @@ Extensions must contain extension.json inside resources
   "name": "NAME",
   "version": "VERSION",
   "author": "AUTHOR",
-  "api": API,
+  "api": 1.0,
   "bootClass": "MAIN CLASS"
 }
 ```
 
-<a hreef="https://github.com/UrbodusTech/SkyWars/blob/release/src/main/java/com/skywars/GameLoader.java#L24">API Current Version</a>
+<a href="https://github.com/UrbodusTech/SkyWars/blob/release/src/main/java/com/skywars/GameLoader.java#L24">API Current Version</a>
 
 The main class must extend Extension and add the abstract functions.
 ```java
