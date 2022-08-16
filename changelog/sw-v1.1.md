@@ -6,5 +6,6 @@
 ## Eliminations
 
 ## Changes
+- [x] Improvements and predictions in the lang system
 
 ## Fixed issues
