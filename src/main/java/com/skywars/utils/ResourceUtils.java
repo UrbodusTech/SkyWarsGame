@@ -2,6 +2,7 @@ package com.skywars.utils;
 
 import cn.nukkit.Server;
 import com.skywars.GameLoader;
+import com.skywars.lang.LangManager;
 import com.skywars.match.Match;
 import com.skywars.match.MatchData;
 import lombok.NonNull;
@@ -48,14 +49,17 @@ public final class ResourceUtils {
     }
 
     public static void saveDefaultLangFile() {
-        File langFile = new File(GameLoader.getInstance().getDataFolder() + "/language/en_US.json");
-        if (!langFile.exists()) {
-            try {
-                FileUtils.copyURLToFile(Objects.requireNonNull(GameLoader.class.getClassLoader().getResource("en_US.json")), langFile);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        for (String langFileName : LangManager.SUPPORTED_LANGUAGES) {
+            File langFile = new File(GameLoader.getInstance().getDataFolder() + "/language/" + langFileName + ".json");
+            if (!langFile.exists()) {
+                try {
+                    FileUtils.copyURLToFile(Objects.requireNonNull(GameLoader.class.getClassLoader().getResource(langFileName + ".json")), langFile);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
+
     }
 
     public static MatchData[] readValidMatchData() {

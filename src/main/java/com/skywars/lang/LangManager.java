@@ -4,12 +4,15 @@ import cn.nukkit.utils.TextFormat;
 import com.skywars.utils.ResourceUtils;
 import lombok.Getter;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
 public class LangManager {
 
+    public static final List<String> SUPPORTED_LANGUAGES = Arrays.asList("en_US", "zh_CN");
     public static final String DEFAULT_LANG_TAG = "en_US";
 
     private final Map<String, LangFile> languages;
@@ -20,7 +23,9 @@ public class LangManager {
 
     public void init() {
         ResourceUtils.saveDefaultLangFile();
-        registerLangFile(DEFAULT_LANG_TAG);
+        for (String language : SUPPORTED_LANGUAGES) {
+            registerLangFile(language);
+        }
     }
 
     public void registerLangFile(String id) {
