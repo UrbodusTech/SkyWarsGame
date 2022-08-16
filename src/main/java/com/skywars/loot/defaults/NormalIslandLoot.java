@@ -30,5 +30,11 @@ public class NormalIslandLoot extends Loot {
         addItem(Item.get(ItemID.CHAIN_CHESTPLATE));
         addItem(Item.get(ItemID.CHAIN_LEGGINGS));
         addItem(Item.get(ItemID.CHAIN_BOOTS));
+
+        addItem(Item.get(ItemID.IRON_CHESTPLATE));
+        addItem(Item.get(ItemID.IRON_LEGGINGS));
+        addItem(Item.get(ItemID.IRON_BOOTS));
+
+        addItem(Item.get(ItemID.IRON_PICKAXE));
     }
 }

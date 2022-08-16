@@ -6,6 +6,10 @@ Sometimes using a public game plugin is somewhat complicated for different reaso
 
 The goal of this plugin is not focused on offering a plugin with all the features that a server/network wants, this plugin offers the systems and gameplay of a SkyWars, yes, but it also offers an extension system that allows servers/networks create own features and integrate them directly into the game while maintaining compatibility and synchronization. Cool! Imagine creating an extension that adds Custom Cages to the plugin or even better create an extension that adds Cages, Kits, Death Effects, etc.
 
+## 🎬 Preview
+[![SkyWars Game Trailer](http://img.youtube.com/vi/hBd9CtYDV8g/0.jpg)](http://www.youtube.com/watch?v=hBd9CtYDV8g "SkyWars Game Trailer")
+
+
 ## ⛳ Changelog
 <a href="https://github.com/UrbodusTech/SkyWars/blob/release/changelog/sw-v1.0.md">SkyWars-Beta-v1.0</a>
 
