@@ -175,7 +175,7 @@ public class MatchBroadcast {
     }
 
     public void publishRemove() {
-        Level level = LevelUtils.getSkyWarsLevel(match.getUuid());
+        Level level = LevelUtils.getSkyWarsLevel(match.getId());
         if (level == null) {
             return;
         }

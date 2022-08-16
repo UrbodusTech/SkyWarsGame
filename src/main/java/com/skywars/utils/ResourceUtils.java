@@ -93,26 +93,26 @@ public final class ResourceUtils {
         File map = new File(loader.getDataFolder() + "/maps/" + match.getData().getMapDirName());
 
         try {
-            File dest = new File(Server.getInstance().getDataPath() + "/worlds/sw_queue/" + match.getUuid().toString());
+            File dest = new File(Server.getInstance().getDataPath() + "/worlds/sw_queue/" + match.getId().toString());
             if (dest.exists()) {
-                loader.getLogger().error("The map [sw_queue/" + match.getUuid().toString() + "] already exits!");
+                loader.getLogger().error("The map [sw_queue/" + match.getId().toString() + "] already exits!");
 
                 return;
             }
 
             FileUtils.copyDirectory(map, dest);
         } catch (IOException exception) {
-            loader.getLogger().error("Could not setup match[" + match.getUuid() + "]: " + exception.getMessage());
-            loader.getMatchManager().deleteMatch(match.getUuid());
+            loader.getLogger().error("Could not setup match[" + match.getId() + "]: " + exception.getMessage());
+            loader.getMatchManager().unregister(match.getId());
         }
     }
 
     public static void deleteMatchMap(@NonNull Match match) {
-        File map = new File(Server.getInstance().getDataPath() + "/worlds/sw_queue/" + match.getUuid().toString());
+        File map = new File(Server.getInstance().getDataPath() + "/worlds/sw_queue/" + match.getId().toString());
         try {
             FileUtils.deleteDirectory(map);
         } catch (IOException e) {
-            GameLoader.getInstance().getLogger().error("Error removing match map [" + match.getUuid() + "]: " + e.getMessage());
+            GameLoader.getInstance().getLogger().error("Error removing match map [" + match.getId() + "]: " + e.getMessage());
         }
     }
 }

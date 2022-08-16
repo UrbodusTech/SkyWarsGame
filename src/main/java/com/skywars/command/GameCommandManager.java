@@ -3,37 +3,17 @@ package com.skywars.command;
 import com.skywars.command.defaults.ExitCommand;
 import com.skywars.command.defaults.HelpCommand;
 import com.skywars.event.session.SessionExecuteCommandEvent;
+import com.skywars.generic.Manager;
 import com.skywars.session.GameSession;
 import com.skywars.utils.EventUtils;
 import com.skywars.utils.LangUtils;
-import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.Map;
+public class GameCommandManager extends Manager<String, GameCommand> {
 
-@Getter
-public class GameCommandManager {
-
-    private final Map<String, GameCommand> commands;
-
-    public GameCommandManager() {
-        commands = new HashMap<>();
-    }
-
-    public void register(GameCommand command) {
-        if (commands.containsKey(command.getName())) {
-            return;
-        }
-
-        commands.put(command.getName(), command);
-    }
-
-    public void unregister(String name) {
-        commands.remove(name);
-    }
-
-    public GameCommand getCommand(String name) {
-        return commands.getOrDefault(name, null);
+    @Override
+    public void init() {
+        register(new HelpCommand());
+        register(new ExitCommand());
     }
 
     public void processCommand(GameSession session, String message) {
@@ -46,7 +26,7 @@ public class GameCommandManager {
         }
 
         String prefix = split[0];
-        GameCommand command = getCommand(prefix);
+        GameCommand command = get(prefix);
         if (command == null) {
             session.getPlayer().sendMessage(LangUtils.translate(session.getPlayer(), "INVALID_COMMAND"));
 
@@ -67,8 +47,4 @@ public class GameCommandManager {
         command.execute(session, args);
     }
 
-    public void init() {
-        register(new HelpCommand());
-        register(new ExitCommand());
-    }
 }

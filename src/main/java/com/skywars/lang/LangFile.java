@@ -2,6 +2,8 @@ package com.skywars.lang;
 
 import com.google.gson.JsonObject;
 import com.skywars.GameLoader;
+import com.skywars.generic.Identifiable;
+import com.skywars.generic.Manager;
 import lombok.Getter;
 import org.apache.commons.io.FileUtils;
 
@@ -11,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Getter
-public class LangFile {
+public class LangFile implements Identifiable<String> {
 
     private final String id;
     private final JsonObject messages;

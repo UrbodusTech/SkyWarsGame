@@ -14,7 +14,7 @@ public class HelpCommand extends GameCommand {
 
     @Override
     public void execute(GameSession session, String[] args) {
-        for (GameCommand command : GameLoader.getInstance().getCommandManager().getCommands().values()) {
+        for (GameCommand command : GameLoader.getInstance().getCommandManager().getEntries()) {
             session.getPlayer().sendMessage(TextFormat.colorize(
                     "&e!" + command.getName() + "&7 - " + LangUtils.translate(session.getPlayer(), command.getDescriptionTranslateId())
             ));

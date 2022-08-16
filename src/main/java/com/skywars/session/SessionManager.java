@@ -1,44 +1,38 @@
 package com.skywars.session;
 
 import cn.nukkit.Player;
+import com.skywars.generic.Manager;
 import lombok.Getter;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Getter
-public class SessionManager {
+public class SessionManager extends Manager<String, GameSession> {
 
-    private final Map<String, GameSession> sessions;
+    @Override
+    protected Map<String, GameSession> generateValue() {
+        return new ConcurrentHashMap<>();
+    }
 
-    public SessionManager() {
-        sessions = new ConcurrentHashMap<>();
+    @Override
+    public void init() {
+        // ...
+    }
+
+    public GameSession getSessionByPlayer(Player player) {
+        return get(player.getName());
     }
 
     public GameSession createGameSession(Player player) {
-        if (sessions.containsKey(player.getName())) {
-            return sessions.get(player.getName());
-        }
+        GameSession session = get(player.getName());
 
-        GameSession session = new GameSession(player);
-        sessions.put(player.getName(), session);
+        if (session == null) {
+            session = new GameSession(player);
+            register(session);
+        }
 
         return session;
     }
 
-    public void removeGameSession(Player player) {
-        sessions.remove(player.getName());
-    }
-
-    public GameSession getSessionByPlayer(Player player) {
-        return sessions.get(player.getName());
-    }
-
-    public void clear() {
-        sessions.clear();
-    }
-
-    public boolean exists(Player player) {
-        return sessions.containsKey(player.getName());
-    }
 }

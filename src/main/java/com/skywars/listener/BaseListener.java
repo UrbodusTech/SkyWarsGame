@@ -20,7 +20,7 @@ public class BaseListener implements Listener {
     }
 
     protected Match getMatchByPlayer(@NonNull Player player) {
-        if (!sessionManager.exists(player)) {
+        if (sessionManager.getSessionByPlayer(player) == null) {
             return null;
         }
 

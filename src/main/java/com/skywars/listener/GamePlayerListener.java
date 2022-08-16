@@ -96,7 +96,7 @@ public class GamePlayerListener extends BaseListener {
             return;
         }
 
-        if (!sessionManager.exists(player)) {
+        if (sessionManager.getSessionByPlayer(player) == null) {
             return;
         }
 

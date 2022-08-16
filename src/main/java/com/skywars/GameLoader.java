@@ -79,7 +79,7 @@ public class GameLoader extends PluginBase {
             extensionManager.close();
         }
         matchManager.close();
-        sessionManager.clear();
+        sessionManager.unregisterAll();
     }
 
     public static GameLoader getInstance() {

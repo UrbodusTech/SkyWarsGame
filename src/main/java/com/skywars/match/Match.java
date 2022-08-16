@@ -15,6 +15,7 @@ import com.skywars.event.match.MatchStartResetEvent;
 import com.skywars.event.player.PlayerConvertSpectatorEvent;
 import com.skywars.event.player.PlayerJoinMatchEvent;
 import com.skywars.event.player.PlayerQuitMatchEvent;
+import com.skywars.generic.Identifiable;
 import com.skywars.loot.Loot;
 import com.skywars.loot.LootManager;
 import com.skywars.loot.LootType;
@@ -33,9 +34,9 @@ import java.util.UUID;
 
 @Getter
 @Setter
-public class Match extends IslandStorage {
+public class Match extends IslandStorage implements Identifiable<UUID> {
 
-    private final UUID uuid;
+    private final UUID id;
     private final MatchData data;
 
     private final List<GameSession> players;
@@ -49,7 +50,7 @@ public class Match extends IslandStorage {
 
     public Match(UUID uuid, MatchData data) {
         super(data);
-        this.uuid = uuid;
+        this.id = uuid;
         this.data = data;
 
         players = new ArrayList<>();
@@ -73,12 +74,12 @@ public class Match extends IslandStorage {
             data.setMinLayer(2);
         }
 
-        LevelUtils.loadSkyWarsLevel(uuid);
+        LevelUtils.loadSkyWarsLevel(id);
         EventUtils.callEvent(new MatchOpenEvent(this));
     }
 
     public void close() {
-        LevelUtils.unloadSkyWarsLevel(uuid);
+        LevelUtils.unloadSkyWarsLevel(id);
         ResourceUtils.deleteMatchMap(this);
         EventUtils.callEvent(new MatchCloseEvent(this));
     }
@@ -110,7 +111,7 @@ public class Match extends IslandStorage {
         player.sendMessage(LangUtils.translate(player, "CONNECTING_MATCH", new String[] {data.getName().toUpperCase()}));
 
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
-        if (sessionManager.exists(player)) {
+        if (sessionManager.contains(player.getName())) {
             player.sendMessage(LangUtils.translate(player, "ALREADY_PLAYING"));
 
             return;
@@ -136,7 +137,7 @@ public class Match extends IslandStorage {
 
         AttributeUtils.sendScreen(player);
         Vector3 spawn = island.getSpawn();
-        player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(uuid)));
+        player.teleport(new Position(spawn.getX(), spawn.getY(), spawn.getZ(), LevelUtils.getSkyWarsLevel(id)));
         AttributeUtils.sendInitialJoin(player);
         broadcast.publishMessage("PLAYER_JOIN", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
         player.sendMessage(LangUtils.translate(player, "MATCH_USE_EXIT"));
@@ -150,15 +151,16 @@ public class Match extends IslandStorage {
         AttributeUtils.sendDefault(player);
 
         SessionManager sessionManager = GameLoader.getInstance().getSessionManager();
-        if (sessionManager.exists(player)) {
-            GameSession session = sessionManager.getSessionByPlayer(player);
+        GameSession session = sessionManager.getSessionByPlayer(player);
+
+        if (session != null) {
             players.remove(session);
             aliveNames.remove(player.getName());
             if (session.getBossBar() != null) {
                 session.getBossBar().destroy();
                 session.setBossBar(null);
             }
-            sessionManager.removeGameSession(player);
+            sessionManager.unregister(session.getId());
 
             if (status == MatchStatus.OPEN || status == MatchStatus.FULL) {
                 broadcast.publishMessage("PLAYER_LEFT", new String[]{player.getName(), String.valueOf(getPlayingSize()), String.valueOf(getMaxSlots())});
@@ -206,7 +208,7 @@ public class Match extends IslandStorage {
      * Return true if in-game tick can continue to the next phase
      */
     public boolean checkForWinner() {
-        if (aliveNames.size() == 0) {
+        if (aliveNames.isEmpty()) {
             return true;
         }
 
@@ -254,7 +256,7 @@ public class Match extends IslandStorage {
     }
 
     private void getAndFillChest(Vector3 vector3, LootType type) {
-        Level level = LevelUtils.getSkyWarsLevel(uuid);
+        Level level = LevelUtils.getSkyWarsLevel(id);
         if (level == null) {
             return;
         }
