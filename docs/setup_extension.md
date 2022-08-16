@@ -9,22 +9,26 @@ Add SkyWars and Nukkit as dependencies
         <id>opencollab-repo-snapshot</id>
         <url>https://repo.opencollab.dev/maven-snapshots/</url>
     </repository>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
 </repositories>
 
+
 <dependencies>
-    <dependency>
-        <groupId>com.skywars</groupId>
-        <artifactId>SkyWars</artifactId>
-        <version>VERSION</version>
-        <scope>system</scope>
-        <systemPath>JAR PATH</systemPath>
-    </dependency>
-    <dependency>
-        <groupId>cn.nukkit</groupId>
-        <artifactId>nukkit</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <scope>provided</scope>
-    </dependency>
+<dependency>
+    <groupId>com.github.UrbodusTech</groupId>
+    <artifactId>SkyWars</artifactId>
+    <version>release-a8ab750858-1</version>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>cn.nukkit</groupId>
+    <artifactId>nukkit</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <scope>provided</scope>
+</dependency>
 </dependencies>
 ```
 

@@ -1,4 +1,5 @@
 # 🌐 SkyWars 🌐
+[![](https://jitpack.io/v/UrbodusTech/SkyWars.svg)](https://jitpack.io/#UrbodusTech/SkyWars)
 <img src="https://i.imgur.com/qePJvtU.png">
 
 ## 🧪 Goal
