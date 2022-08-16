@@ -21,7 +21,7 @@ import lombok.Getter;
 public class GameLoader extends PluginBase {
 
     public static final Gson JSON = new Gson();
-    public static final Double API_VERSION = 1.0;
+    public static final Double API_VERSION = 1.1;
 
     private static GameLoader instance;
     private ExtensionManager extensionManager;

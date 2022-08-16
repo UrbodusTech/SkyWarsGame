@@ -12,7 +12,7 @@ The goal of this plugin is not focused on offering a plugin with all the feature
 
 
 ## ⛳ Changelog
-<a href="https://github.com/UrbodusTech/SkyWars/blob/release/changelog/sw-v1.0.md">SkyWars-Beta-v1.0</a>
+<a href="https://github.com/UrbodusTech/SkyWars/blob/release/changelog/sw-v1.1.md">SkyWars-Beta-v1.1</a>
 
 ## 👥 Authors
 - JoseLuisHD

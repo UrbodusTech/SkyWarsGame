@@ -48,12 +48,15 @@ public final class ResourceUtils {
         }
     }
 
-    public static void saveDefaultLangFile() {
+    public static void saveDefaultLangFiles() {
         for (String langFileName : LangManager.SUPPORTED_LANGUAGES) {
             File langFile = new File(GameLoader.getInstance().getDataFolder() + "/language/" + langFileName + ".json");
             if (!langFile.exists()) {
                 try {
-                    FileUtils.copyURLToFile(Objects.requireNonNull(GameLoader.class.getClassLoader().getResource(langFileName + ".json")), langFile);
+                    FileUtils.copyURLToFile(
+                            Objects.requireNonNull(GameLoader.class.getClassLoader().getResource("lang/" + langFileName + ".json")),
+                            langFile
+                    );
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
