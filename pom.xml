@@ -68,10 +68,10 @@
                 <configuration>
                     <encoding>UTF-8</encoding>
                     <excludes>
-                        <exclude>example/**</exclude>
-                        <exclude>changelog/**</exclude>
-                        <exclude>docs/**</exclude>
-                        <exclude>MapCli/**</exclude>
+                        <exclude>example/*</exclude>
+                        <exclude>changelog/*</exclude>
+                        <exclude>docs/*</exclude>
+                        <exclude>MapCli/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
