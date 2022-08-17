@@ -71,6 +71,7 @@
                         <exclude>example/**</exclude>
                         <exclude>changelog/**</exclude>
                         <exclude>docs/**</exclude>
+                        <exclude>MapCli/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

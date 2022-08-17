@@ -27,3 +27,8 @@ hs_err_pid*
 /target/
 /example/KitsExtension/target/
 /example/KitsExtension/.idea/
+
+# MapCli
+/MapCli/.idea/
+/MapCli/bin/
+*.exe
